@@ -1,20 +1,76 @@
 package view.panels;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import model.MetroCard;
+import model.database.MetrocardDatabase;
 
 
 public class MetroCardOverviewPane extends GridPane{
-	//private TableView<MetroCard> table;
-	
+	private TableView<MetroCard> table;
+	private MetrocardDatabase database;
+	private ObservableList<MetroCard> metrocards;
 	
 	public MetroCardOverviewPane() {
+		database = new MetrocardDatabase();
+		VBox root = new VBox();
+
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);        
-		this.add(new Label("List of Metro cards:"), 0, 0, 1, 1);		
-	}	
+		this.add(new Label("List of Metro cards:"), 0, 0, 1, 1);
+
+		table = new TableView<MetroCard>();
+		refresh();
+
+		TableColumn<MetroCard, Integer> colID = new TableColumn<MetroCard, Integer>("MetroCard ID");
+		colID.setMinWidth(100);
+		colID.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("id"));
+
+		TableColumn<MetroCard, String> colAankoopDatum = new TableColumn<MetroCard, String>("Aankoopdatum");
+		colAankoopDatum.setMinWidth(300);
+		colAankoopDatum.setCellValueFactory(new PropertyValueFactory<MetroCard, String>("aankoopdatum"));
+
+		TableColumn<MetroCard, Integer> colRittenBeschikbaar = new TableColumn<MetroCard, Integer>("Ritten Beschikbaar");
+		colRittenBeschikbaar.setMinWidth(100);
+		colRittenBeschikbaar.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("rittenbeschikbaar"));
+
+		TableColumn<MetroCard, Integer> colRittenVerbruikt = new TableColumn<MetroCard, Integer>("Ritten Verbruikt");
+		colRittenVerbruikt.setMinWidth(100);
+		colRittenVerbruikt.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("rittenverbruikt"));
+
+		table.getColumns().addAll(colID, colAankoopDatum, colRittenBeschikbaar,colRittenVerbruikt);
+
+		root.getChildren().addAll(table);
+		Stage stage = new Stage();
+		Scene scene = new Scene(root);
+		stage.setTitle("Metrocard list");
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	public void displayMessage(String message){
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setHeaderText("Information ");
+		alert.setContentText(message);
+		alert.show();
+	}
+
+	public void refresh(){
+		metrocards = FXCollections.observableArrayList(database.getMetroCards());
+		table.setItems(metrocards);
+		table.refresh();
+	}
 }
