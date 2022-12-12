@@ -19,7 +19,7 @@ public abstract class TekstLoadSaveTemplate<K,V>{
         try (BufferedReader reader = new BufferedReader(new FileReader(file))){
             String line = reader.readLine();
             while (line != null && !line.trim().equals("")) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(";");
                 V element = maakObject(tokens);
                 K key = getKey(tokens);
                 returnMap.put(key,element);
@@ -36,10 +36,9 @@ public abstract class TekstLoadSaveTemplate<K,V>{
             for (Map.Entry<K, V> entry : map.entrySet()) {
                 K key = entry.getKey();
                 V value = entry.getValue();
-                writer.write(key + "," + value);
+                writer.write(key + ";" + value);
                 writer.newLine();
             }
         }
     }
-
 }
