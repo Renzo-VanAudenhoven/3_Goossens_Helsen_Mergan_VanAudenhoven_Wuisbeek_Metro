@@ -3,8 +3,8 @@ package model;
 public class MetroCard {
     private int kaartID;
     private String aankoopdatum;
-    private int ritten_beschikbaar;
-    private int ritten_verbruikt;
+    private int rittenBeschikbaar;
+    private int rittenVerbruikt;
 
     public MetroCard(int kaartID, String aankoopdatum, int ritten_beschikbaar, int ritten_verbruikt){
         setKaartID(kaartID);
@@ -30,18 +30,18 @@ public class MetroCard {
     }
 
     public int getRittenBeschikbaar() {
-        return ritten_beschikbaar;
+        return rittenBeschikbaar;
     }
 
     public void setRittenBeschikbaar(int ritten_beschikbaar) {
-        this.ritten_beschikbaar = ritten_beschikbaar;
+        this.rittenBeschikbaar = ritten_beschikbaar;
     }
 
     public int getRittenVerbruikt() {
-        return ritten_verbruikt;
+        return rittenVerbruikt;
     }
 
     public void setRittenVerbruikt(int ritten_verbruikt) {
-        this.ritten_verbruikt = ritten_verbruikt;
+        this.rittenVerbruikt = ritten_verbruikt;
     }
 }

@@ -37,7 +37,7 @@ public class MetroCardOverviewPane extends GridPane{
 
 		TableColumn<MetroCard, Integer> colID = new TableColumn<MetroCard, Integer>("MetroCard ID");
 		colID.setMinWidth(100);
-		colID.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("id"));
+		colID.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("kaartID"));
 
 		TableColumn<MetroCard, String> colAankoopDatum = new TableColumn<MetroCard, String>("Aankoopdatum");
 		colAankoopDatum.setMinWidth(300);
@@ -45,20 +45,15 @@ public class MetroCardOverviewPane extends GridPane{
 
 		TableColumn<MetroCard, Integer> colRittenBeschikbaar = new TableColumn<MetroCard, Integer>("Ritten Beschikbaar");
 		colRittenBeschikbaar.setMinWidth(100);
-		colRittenBeschikbaar.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("rittenbeschikbaar"));
+		colRittenBeschikbaar.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("rittenBeschikbaar"));
 
 		TableColumn<MetroCard, Integer> colRittenVerbruikt = new TableColumn<MetroCard, Integer>("Ritten Verbruikt");
 		colRittenVerbruikt.setMinWidth(100);
-		colRittenVerbruikt.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("rittenverbruikt"));
+		colRittenVerbruikt.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("rittenVerbruikt"));
 
 		table.getColumns().addAll(colID, colAankoopDatum, colRittenBeschikbaar,colRittenVerbruikt);
-
-		root.getChildren().addAll(table);
-		Stage stage = new Stage();
-		Scene scene = new Scene(root);
-		stage.setTitle("Metrocard list");
-		stage.setScene(scene);
-		stage.show();
+		this.add(table,0,2);
+		refresh();
 	}
 
 	public void displayMessage(String message){
