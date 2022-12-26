@@ -1,5 +1,6 @@
 package view.panels;
 
+import controller.ControlCenterPaneController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -10,17 +11,17 @@ import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 import java.awt.*;
 
 public class ControlCenterPane extends VBox {
-    private LoadSaveStrategyFactory loadSaveFactory = new LoadSaveStrategyFactory();
+        private ControlCenterPaneController controlCenterPaneController;
     public ControlCenterPane() {
         //VBox layout = new VBox();
 
         Button button = new Button("Open metrostation");
-        button.setOnAction(event -> load());
+        button.setOnAction(event -> openMetroStation());
         getChildren().add(button);
 
     }
 
-    public void load() {
-        System.out.println("ControlCenterPane loaded");
+    public void openMetroStation() {
+        controlCenterPaneController.openMetroStation();
     }
 }

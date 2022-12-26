@@ -3,7 +3,9 @@ package view;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;	
+import javafx.stage.StageStyle;
+
+import java.util.ArrayList;
 
 public class MetroTicketView {
 	private Stage stage = new Stage();		
@@ -18,5 +20,9 @@ public class MetroTicketView {
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		
+	}
+
+	public void updateMetroCardIDList(ArrayList<Integer> ids){
+
 	}
 }

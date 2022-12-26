@@ -18,14 +18,16 @@ import model.MetroCard;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 
+import java.util.ArrayList;
+
 
 public class MetroCardOverviewPane extends GridPane{
 	private TableView<MetroCard> table;
-	private MetrocardDatabase database;
+	private MetrocardDatabase database = null;
 	private ObservableList<MetroCard> metrocards;
 	
 	public MetroCardOverviewPane() {
-		database = new MetrocardDatabase();
+		//database = new MetrocardDatabase();
 		VBox root = new VBox();
 
 		this.setPadding(new Insets(5, 5, 5, 5));
@@ -34,7 +36,7 @@ public class MetroCardOverviewPane extends GridPane{
 		this.add(new Label("List of Metro cards:"), 0, 0, 1, 1);
 
 		table = new TableView<MetroCard>();
-		refresh();
+		//refresh();
 
 		TableColumn<MetroCard, Integer> colID = new TableColumn<MetroCard, Integer>("MetroCard ID");
 		colID.setMinWidth(100);
@@ -54,6 +56,10 @@ public class MetroCardOverviewPane extends GridPane{
 
 		table.getColumns().addAll(colID, colAankoopDatum, colRittenBeschikbaar,colRittenVerbruikt);
 		this.add(table,0,2);
+		//refresh();
+	}
+	public void updateMetroCardList(ArrayList<MetroCard> metrocards){
+		database = new MetrocardDatabase();
 		refresh();
 	}
 
@@ -65,8 +71,9 @@ public class MetroCardOverviewPane extends GridPane{
 	}
 
 	public void refresh(){
-		metrocards = FXCollections.observableArrayList(database.getMetroCards());
+		metrocards = FXCollections.observableArrayList(database.getMetroCardList());
 		table.setItems(metrocards);
 		table.refresh();
 	}
+
 }

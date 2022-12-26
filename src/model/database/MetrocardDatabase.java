@@ -1,49 +1,41 @@
 package model.database;
 
 import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
 import model.MetroCard;
 import excel.ExcelPlugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import java.io.*;
+import java.util.*;
+
+import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 import model.database.utilities.*;
 
 public class MetrocardDatabase {
-    private List<MetroCard> data1;
     private Map<Integer, MetroCard> data;
     private LoadSaveStrategyFactory loadSaveFactory = new LoadSaveStrategyFactory();
     private File tekst = new File("src/bestanden/metrocards.txt");
     private File excel = new File("src/bestanden/metrocards.xls");
 
     public MetrocardDatabase(){
+        load();
+    }
 
-        //data = new ArrayList<MetroCard>();
-        //data.add(new MetroCard(1,"10#2022",10,5));
-        //data.add(new MetroCard(2,"11#2022",1,10));
-        //data.add(new MetroCard(3,"12#2022",100,900));
-        try {
-
-            data = loadSaveFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.METROCARDS_TEKST).load(tekst);
-        } catch (BiffException e) {
-            e.printStackTrace();
+    public void setLoadSaveStrategy(LoadSaveStrategyEnum strategy){
+        Properties prop = new Properties();
+        try (InputStream input = new FileInputStream("src/bestanden/settings.properties")) {
+            prop.load(input);
+            prop.setProperty("formaat", strategy.getStrategy());
+            prop.store(new FileOutputStream("src/bestanden/settings.properties"), null);
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        try {
-//            data = loadSaveFactory.createLoadSaveStrategy().load(tekst);
-//        } catch (IOException | BiffException e) {
-//            e.printStackTrace();
-//        }
     }
 
-    public ArrayList<MetroCard> getMetroCards(){
+    public ArrayList<MetroCard> getMetroCardList(){
         ArrayList<MetroCard> metroCards = new ArrayList<MetroCard>();
         for (Map.Entry<Integer, MetroCard> entry : data.entrySet()) {
             metroCards.add(entry.getValue());
@@ -51,12 +43,45 @@ public class MetrocardDatabase {
         return metroCards;
     }
 
-    public int getAantalMetroCards(){
-        return data.size()-1;
+    public ArrayList<Integer> getMetroCardIDList(){
+        ArrayList<Integer> metroCardIDs = new ArrayList<Integer>();
+        for (Map.Entry<Integer, MetroCard> entry : data.entrySet()) {
+            metroCardIDs.add(entry.getKey());
+        }
+        return metroCardIDs;
     }
 
-    public void addDummyMetroCard(){
-        MetroCard metroCard = new MetroCard(5,"1#2022",5,5);
-        //data.add(metroCard);
+    public void load(){
+        LoadSaveStrategy loadSaveStrategy = loadSaveFactory.createLoadSaveStrategy();
+        if (loadSaveStrategy.getClass().getSimpleName().equals("MetrocardsTekstLoadSaveStrategy")){
+            try {
+                data = loadSaveStrategy.load(tekst);
+            } catch (IOException | BiffException e) {
+                e.printStackTrace();
+            }
+        } else if (loadSaveStrategy.getClass().getSimpleName().equals("MetrocardsExcelLoadSaveStrategy")){
+            try {
+                data = loadSaveStrategy.load(excel);
+            } catch (IOException | BiffException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void save(){
+        LoadSaveStrategy loadSaveStrategy = loadSaveFactory.createLoadSaveStrategy();
+        if (loadSaveStrategy.getClass().getSimpleName().equals("MetrocardsTekstLoadSaveStrategy")){
+            try {
+                loadSaveStrategy.save(data,tekst);
+            } catch (IOException | BiffException | WriteException e) {
+                e.printStackTrace();
+            }
+        } else if (loadSaveStrategy.getClass().getSimpleName().equals("MetrocardsExcelLoadSaveStrategy")){
+            try {
+                loadSaveStrategy.save(data,excel);
+            } catch (IOException | BiffException | WriteException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
