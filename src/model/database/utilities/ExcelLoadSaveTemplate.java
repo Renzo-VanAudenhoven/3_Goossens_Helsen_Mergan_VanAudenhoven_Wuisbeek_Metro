@@ -34,9 +34,6 @@ public abstract class ExcelLoadSaveTemplate<K,V>{
         excelPlugin.write(file,mapToListArrayList(map));
     }
 
-
-
-
     private ArrayList<ArrayList<String>> mapToListArrayList(Map<K,V> map){
         ArrayList<ArrayList<String>> lijst = new ArrayList<>();
 
