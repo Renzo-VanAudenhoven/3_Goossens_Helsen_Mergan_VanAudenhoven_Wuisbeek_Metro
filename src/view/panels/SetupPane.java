@@ -27,13 +27,13 @@ public class SetupPane extends VBox {
         //create a switch case if setting.tostring is equal to tekst or excel settingString = METROCARD_TEKST or METROCARD_EXCEL
         switch (setting.toString()){
             case "Tekst":
-                settingString = "METROCARD_TEKST";
+                settingString = "METROCARDS_TEKST";
                 break;
             case "Excel":
-                settingString = "METROCARD_EXCEL";
+                settingString = "METROCARDS_EXCEL";
                 break;
             default:
-                settingString = "METROCARD_TEKST";
+                settingString = "METROCARDS_TEKST";
                 break;
         }
 

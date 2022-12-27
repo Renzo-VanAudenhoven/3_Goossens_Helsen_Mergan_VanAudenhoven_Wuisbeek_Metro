@@ -73,7 +73,6 @@ public class MetroCardOverviewPane extends GridPane{
 		}
 		table.setItems(this.metrocards);
 		table.refresh();
-
 	}
 
 	public void displayMessage(String message){
