@@ -17,11 +17,14 @@ public class MetroCardOverviewPaneController implements Observer {
         metroFacade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
     }
 
+    public void setMetroCardOverviewPane(MetroCardOverviewPane metroCardOverviewPane) {
+        this.metroCardOverviewPane = metroCardOverviewPane;
+    }
+
     @Override
     public void update() {
         metroFacade.load();
         ArrayList<MetroCard> metrocards = metroFacade.getMetroCardList();
-        metroCardOverviewPane = new MetroCardOverviewPane();
         metroCardOverviewPane.updateMetroCardList(metrocards);
     }
 

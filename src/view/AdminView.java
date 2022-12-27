@@ -13,14 +13,14 @@ import view.panels.AdminMainPane;
 public class AdminView {
 	private Stage stage = new Stage();		
 		
-	public AdminView(ControlCenterPaneController controlCenterPaneController) {
+	public AdminView(ControlCenterPaneController controlCenterPaneController, MetroCardOverviewPaneController metroCardOverviewPaneController) {
 		stage.setTitle("ADMIN VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(660);
 		stage.setY(5);
 		Group root = new Group();
 		Scene scene = new Scene(root, 690, 680);
-		BorderPane borderPane = new AdminMainPane(controlCenterPaneController);
+		BorderPane borderPane = new AdminMainPane(controlCenterPaneController, metroCardOverviewPaneController);
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());
 		root.getChildren().add(borderPane);

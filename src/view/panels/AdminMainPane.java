@@ -10,9 +10,9 @@ import model.Observer;
 import view.panels.MetroCardOverviewPane;
 
 public class AdminMainPane extends BorderPane {
-	public AdminMainPane(ControlCenterPaneController controlCenterPaneController){
+	public AdminMainPane(ControlCenterPaneController controlCenterPaneController, MetroCardOverviewPaneController metroCardOverviewPaneController){
 	    TabPane tabPane = new TabPane(); 	    
-        MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
+        MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane(metroCardOverviewPaneController);
 	    //maak een controlCenterPane aan
         ControlCenterPane controlCenterPane = new ControlCenterPane(controlCenterPaneController);
 	    //maak een setupPane aan

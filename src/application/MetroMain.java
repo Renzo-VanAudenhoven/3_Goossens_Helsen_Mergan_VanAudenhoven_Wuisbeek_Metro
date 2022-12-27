@@ -21,7 +21,7 @@ public class MetroMain extends Application {
 		MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroFacade);
 		ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController(metroFacade);
 
-		AdminView adminView = new AdminView(controlCenterPaneController);
+		AdminView adminView = new AdminView(controlCenterPaneController, metroCardOverviewPaneController);
 		MetroTicketView metroTicketView = new MetroTicketView();
 		MetroStationView metroStationView = new MetroStationView();
 	}

@@ -27,10 +27,10 @@ public class MetroCardOverviewPane extends GridPane{
 	private TableView<MetroCard> table;
 	private MetrocardDatabase database = null;
 	private ObservableList<MetroCard> metrocards;
-	private MetroCardOverviewPaneController controller;
 	private VBox root;
 	
-	public 	MetroCardOverviewPane(){
+	public 	MetroCardOverviewPane(MetroCardOverviewPaneController controller){
+		controller.setMetroCardOverviewPane(this);
 		root = new VBox();
 		root.setSpacing(10);
 		root.setPadding(new Insets(10, 10, 10, 10));
