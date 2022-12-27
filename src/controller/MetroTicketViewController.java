@@ -11,8 +11,8 @@ public class MetroTicketViewController implements Observer {
     private MetroFacade facade;
     private MetroTicketView metroTicketView = new MetroTicketView();
 
-    public MetroTicketViewController() {
-        facade = new MetroFacade();
+    public MetroTicketViewController(MetroFacade facade) {
+        this.facade = facade;
         facade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
     }
 

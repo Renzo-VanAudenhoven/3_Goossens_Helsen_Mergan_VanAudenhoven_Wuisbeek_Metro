@@ -11,17 +11,20 @@ import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 import java.awt.*;
 
 public class ControlCenterPane extends VBox {
-    private ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController();
+    private ControlCenterPaneController controlCenterPaneController;
     public ControlCenterPane() {
         //VBox layout = new VBox();
-
+        controlCenterPaneController = new ControlCenterPaneController();
         Button button = new Button("Open metrostation");
+        System.out.println("voor lambda");
         button.setOnAction(event -> openMetroStation());
+        System.out.println("na lambda");
         getChildren().add(button);
 
     }
 
     public void openMetroStation() {
+        System.out.println("In openMetroStation van ControlCenterPane");
         controlCenterPaneController.openMetroStation();
     }
 }

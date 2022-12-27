@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 
 public class MetroCardOverviewPane extends GridPane{
-	private TableView<MetroCard> table;
+	private TableView<MetroCard> table = new TableView<MetroCard>();
 	private MetrocardDatabase database = null;
 	private ObservableList<MetroCard> metrocards;
 	
@@ -32,10 +32,10 @@ public class MetroCardOverviewPane extends GridPane{
 
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
-        this.setHgap(5);        
+        this.setHgap(5);
 		this.add(new Label("List of Metro cards:"), 0, 0, 1, 1);
 
-		table = new TableView<MetroCard>();
+		//table = new TableView<MetroCard>();
 		//refresh();
 
 		TableColumn<MetroCard, Integer> colID = new TableColumn<MetroCard, Integer>("MetroCard ID");
@@ -59,8 +59,17 @@ public class MetroCardOverviewPane extends GridPane{
 		//refresh();
 	}
 	public void updateMetroCardList(ArrayList<MetroCard> metrocards){
+		System.out.println("In de update methode van de MetroCardOverviewPane");
 		database = new MetrocardDatabase();
-		refresh();
+		System.out.println("voor observablelist"+this.metrocards);
+		this.metrocards = FXCollections.observableArrayList(database.getMetroCardList());
+		System.out.println("na obslist"+this.metrocards);
+		table.setItems(this.metrocards);
+		table.refresh();
+
+		/*this.metrocards = FXCollections.observableArrayList(metrocards);
+		table.setItems(this.metrocards);
+		table.refresh();*/
 	}
 
 	public void displayMessage(String message){
@@ -71,7 +80,9 @@ public class MetroCardOverviewPane extends GridPane{
 	}
 
 	public void refresh(){
+		System.out.println("refresh voor" + metrocards);
 		metrocards = FXCollections.observableArrayList(database.getMetroCardList());
+		System.out.println("refresh na"+metrocards);
 		table.setItems(metrocards);
 		table.refresh();
 	}
