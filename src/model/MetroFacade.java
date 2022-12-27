@@ -16,31 +16,34 @@ public class MetroFacade implements Subject{
 
     private LoadSaveStrategyFactory loadSaveStrategyFactory;
     private MetrocardDatabase metroCardDatabase;
-    private Map<MetroEventsEnum, List<Observer>> observersMap = new HashMap<>();
+    private Map<MetroEventsEnum, List<Observer>> observers = new HashMap<>();
 
-    public MetroFacade(MetrocardDatabase metroCardDatabase){
-        this.metroCardDatabase = metroCardDatabase;
+    public MetroFacade(){
+        metroCardDatabase = new MetrocardDatabase();
+        loadSaveStrategyFactory = new LoadSaveStrategyFactory();
         metroCardDatabase.setLoadSaveStrategy(LoadSaveStrategyEnum.METROCARDS_TEKST);
         metroCardDatabase.load();
         for(MetroEventsEnum metroEventsEnum : MetroEventsEnum.values()){
-            observersMap.put(metroEventsEnum, new ArrayList<Observer>());
+            observers.put(metroEventsEnum, new ArrayList<Observer>());
         }
-        notifyObservers();
     }
 
     @Override
-    public void addObserver(Observer o) {
-        observers.add(o);
+    public void addObserver(MetroEventsEnum e, Observer o) {
+        observers.get(e).add(o);
     }
 
     @Override
-    public void removeObserver(Observer o) {
-        observers.remove(o);
+    public void removeObserver(MetroEventsEnum e, Observer o) {
+        observers.get(e).remove(o);
     }
 
     @Override
-    public void notifyObservers() {
-        observers.forEach(Observer::update);
+    public void notifyObservers(MetroEventsEnum e) {
+        for(Observer obs : observers.get(e)){
+            System.out.println(obs.getClass().getName());
+            obs.update();
+        }
     }
 
     public void openMetroStation(){

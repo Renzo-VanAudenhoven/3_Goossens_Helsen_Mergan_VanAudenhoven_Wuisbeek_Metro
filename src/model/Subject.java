@@ -5,11 +5,9 @@ import java.util.List;
 
 public interface Subject {
 
-    List<Observer> observers = new ArrayList<>();
+    void addObserver(MetroEventsEnum e, Observer o);
 
-    void addObserver(Observer o);
+    void removeObserver(MetroEventsEnum e, Observer o);
 
-    void removeObserver(Observer o);
-
-    void notifyObservers();
+    void notifyObservers(MetroEventsEnum e);
 }

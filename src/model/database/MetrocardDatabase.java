@@ -25,6 +25,7 @@ public class MetrocardDatabase {
     }
 
     public void setLoadSaveStrategy(LoadSaveStrategyEnum strategy){
+        /*
         Properties prop = new Properties();
         try (InputStream input = new FileInputStream("src/bestanden/settings.properties")) {
             prop.load(input);
@@ -33,6 +34,7 @@ public class MetrocardDatabase {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
     public ArrayList<MetroCard> getMetroCardList(){

@@ -12,9 +12,9 @@ import java.awt.*;
 
 public class ControlCenterPane extends VBox {
         private ControlCenterPaneController controlCenterPaneController;
-    public ControlCenterPane() {
+    public ControlCenterPane(ControlCenterPaneController controlCenterPaneController) {
         //VBox layout = new VBox();
-
+        this.controlCenterPaneController = controlCenterPaneController;
         Button button = new Button("Open metrostation");
         button.setOnAction(event -> openMetroStation());
         getChildren().add(button);
