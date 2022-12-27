@@ -11,7 +11,7 @@ import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 import java.awt.*;
 
 public class ControlCenterPane extends VBox {
-        private ControlCenterPaneController controlCenterPaneController;
+    private ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController();
     public ControlCenterPane() {
         //VBox layout = new VBox();
 

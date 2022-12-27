@@ -28,7 +28,7 @@ public class MetrocardDatabase {
         Properties prop = new Properties();
         try (InputStream input = new FileInputStream("src/bestanden/settings.properties")) {
             prop.load(input);
-            prop.setProperty("formaat", strategy.getStrategy());
+            prop.setProperty("formaat", strategy.toString());
             prop.store(new FileOutputStream("src/bestanden/settings.properties"), null);
         } catch (IOException e) {
             e.printStackTrace();
