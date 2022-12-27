@@ -59,8 +59,9 @@ public class MetroCardOverviewPane extends GridPane{
 		//refresh();
 	}
 	public void updateMetroCardList(ArrayList<MetroCard> metrocards){
-		database = new MetrocardDatabase();
-		refresh();
+		System.out.println(metrocards);
+		System.out.println(database);
+		System.out.println(this.metrocards);
 	}
 
 	public void displayMessage(String message){

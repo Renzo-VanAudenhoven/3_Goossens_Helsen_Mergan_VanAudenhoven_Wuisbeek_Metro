@@ -17,24 +17,16 @@ import model.database.utilities.*;
 public class MetrocardDatabase {
     private Map<Integer, MetroCard> data;
     private LoadSaveStrategyFactory loadSaveFactory = new LoadSaveStrategyFactory();
+    private LoadSaveStrategy loadSaveStrategy;
     private File tekst = new File("src/bestanden/metrocards.txt");
     private File excel = new File("src/bestanden/metrocards.xls");
 
     public MetrocardDatabase(){
-        load();
+
     }
 
-    public void setLoadSaveStrategy(LoadSaveStrategyEnum strategy){
-        /*
-        Properties prop = new Properties();
-        try (InputStream input = new FileInputStream("src/bestanden/settings.properties")) {
-            prop.load(input);
-            prop.setProperty("formaat", strategy.getStrategy());
-            prop.store(new FileOutputStream("src/bestanden/settings.properties"), null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
+    public void setLoadSaveStrategy(LoadSaveStrategy strategy){
+        loadSaveStrategy = strategy;
     }
 
     public ArrayList<MetroCard> getMetroCardList(){
@@ -54,7 +46,6 @@ public class MetrocardDatabase {
     }
 
     public void load(){
-        LoadSaveStrategy loadSaveStrategy = loadSaveFactory.createLoadSaveStrategy();
         if (loadSaveStrategy.getClass().getSimpleName().equals("MetrocardsTekstLoadSaveStrategy")){
             try {
                 data = loadSaveStrategy.load(tekst);

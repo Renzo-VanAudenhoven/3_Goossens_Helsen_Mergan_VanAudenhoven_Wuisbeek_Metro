@@ -21,8 +21,7 @@ public class MetroFacade implements Subject{
     public MetroFacade(){
         metroCardDatabase = new MetrocardDatabase();
         loadSaveStrategyFactory = new LoadSaveStrategyFactory();
-        metroCardDatabase.setLoadSaveStrategy(LoadSaveStrategyEnum.METROCARDS_TEKST);
-        metroCardDatabase.load();
+
         for(MetroEventsEnum metroEventsEnum : MetroEventsEnum.values()){
             observers.put(metroEventsEnum, new ArrayList<Observer>());
         }
@@ -41,21 +40,22 @@ public class MetroFacade implements Subject{
     @Override
     public void notifyObservers(MetroEventsEnum e) {
         for(Observer obs : observers.get(e)){
-            System.out.println(obs.getClass().getName());
             obs.update();
         }
     }
 
     public void openMetroStation(){
-        loadSaveStrategyFactory.createLoadSaveStrategy();
+        metroCardDatabase.setLoadSaveStrategy(loadSaveStrategyFactory.createLoadSaveStrategy());
+        metroCardDatabase.load();
+        notifyObservers(MetroEventsEnum.OPEN_METROSTATION);
     }
 
     public ArrayList<MetroCard> getMetroCardList(){
-        return null;
+        return metroCardDatabase.getMetroCardList();
     }
 
     public ArrayList<Integer> getMetroCardIDList(){
-        return null;
+        return metroCardDatabase.getMetroCardIDList();
     }
 
     public void load() {
