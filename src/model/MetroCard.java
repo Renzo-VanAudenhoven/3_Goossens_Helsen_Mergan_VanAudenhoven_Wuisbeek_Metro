@@ -44,4 +44,8 @@ public class MetroCard {
     public void setRittenVerbruikt(int ritten_verbruikt) {
         this.rittenVerbruikt = ritten_verbruikt;
     }
+
+    public String toString(){
+    	return "KaartID: " + kaartID + " Aankoopdatum: " + aankoopdatum + " Ritten beschikbaar: " + rittenBeschikbaar + " Ritten verbruikt: " + rittenVerbruikt;
+    }
 }

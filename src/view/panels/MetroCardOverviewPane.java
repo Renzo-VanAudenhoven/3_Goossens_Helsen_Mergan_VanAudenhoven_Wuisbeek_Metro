@@ -1,6 +1,7 @@
 package view.panels;
 
 
+import controller.MetroCardOverviewPaneController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.MetroCard;
+import model.Observer;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 
@@ -25,10 +27,13 @@ public class MetroCardOverviewPane extends GridPane{
 	private TableView<MetroCard> table;
 	private MetrocardDatabase database = null;
 	private ObservableList<MetroCard> metrocards;
+	private MetroCardOverviewPaneController controller;
+	private VBox root;
 	
-	public MetroCardOverviewPane() {
-		//database = new MetrocardDatabase();
-		VBox root = new VBox();
+	public 	MetroCardOverviewPane(){
+		root = new VBox();
+		root.setSpacing(10);
+		root.setPadding(new Insets(10, 10, 10, 10));
 
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
@@ -55,13 +60,20 @@ public class MetroCardOverviewPane extends GridPane{
 		colRittenVerbruikt.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("rittenVerbruikt"));
 
 		table.getColumns().addAll(colID, colAankoopDatum, colRittenBeschikbaar,colRittenVerbruikt);
-		this.add(table,0,2);
+
 		//refresh();
+
+		root.getChildren().addAll(table);
+		this.add(root, 0, 2);
 	}
 	public void updateMetroCardList(ArrayList<MetroCard> metrocards){
-		System.out.println(metrocards);
-		System.out.println(database);
-		System.out.println(this.metrocards);
+		this.metrocards = FXCollections.observableArrayList(metrocards);
+		for (MetroCard metrocard : metrocards) {
+			System.out.println(metrocard.toString());
+		}
+		table.setItems(this.metrocards);
+		table.refresh();
+
 	}
 
 	public void displayMessage(String message){

@@ -2,9 +2,11 @@ package view.panels;
 
 
 import controller.ControlCenterPaneController;
+import controller.MetroCardOverviewPaneController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import model.Observer;
 import view.panels.MetroCardOverviewPane;
 
 public class AdminMainPane extends BorderPane {

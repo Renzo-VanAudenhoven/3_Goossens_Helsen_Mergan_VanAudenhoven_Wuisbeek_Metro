@@ -11,7 +11,7 @@ public class ControlCenterPaneController implements Observer {
 
     public ControlCenterPaneController(MetroFacade facade){
         this.metroFacade = facade;
-        metroFacade.addObserver(MetroEventsEnum.OPEN_METROSTATION,this);
+        //metroFacade.addObserver(MetroEventsEnum.OPEN_METROSTATION,this);
     }
 
     @Override

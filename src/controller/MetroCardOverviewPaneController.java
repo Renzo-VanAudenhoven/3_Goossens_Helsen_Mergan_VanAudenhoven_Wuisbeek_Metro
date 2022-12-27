@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class MetroCardOverviewPaneController implements Observer {
     private MetroFacade metroFacade;
-    private MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
+    private MetroCardOverviewPane metroCardOverviewPane;
 
     public MetroCardOverviewPaneController(MetroFacade facade){
         this.metroFacade = facade;
@@ -19,7 +19,13 @@ public class MetroCardOverviewPaneController implements Observer {
 
     @Override
     public void update() {
+        metroFacade.load();
         ArrayList<MetroCard> metrocards = metroFacade.getMetroCardList();
+        metroCardOverviewPane = new MetroCardOverviewPane();
         metroCardOverviewPane.updateMetroCardList(metrocards);
+    }
+
+    public MetroFacade getMetroFacade() {
+        return metroFacade;
     }
 }

@@ -61,4 +61,8 @@ public class MetroFacade implements Subject{
     public void load() {
         metroCardDatabase.load();
     }
+
+    public MetrocardDatabase getMetroCardDatabase() {
+        return metroCardDatabase;
+    }
 }
