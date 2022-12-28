@@ -2,10 +2,13 @@ package view.panels;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,11 +18,15 @@ import java.util.Properties;
 
 public class SetupPane extends VBox {
     public SetupPane(){
-        Button button = new Button("Save");
-        ObservableList<String> options = FXCollections.observableArrayList("Tekst", "Excel");
-        ComboBox comboBox = new ComboBox(options);
-        button.setOnAction(event -> saveSetting(comboBox.getValue()));
-        getChildren().addAll(comboBox ,button);
+        VBox root = new VBox();
+        root.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+        root.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
+        root.setPadding(new Insets(10, 10, 10, 10));
+        root.setSpacing(10);
+
+        createInterface(root);
+
+        getChildren().addAll(root);
     }
 
     public void saveSetting(Object setting){
@@ -46,5 +53,27 @@ public class SetupPane extends VBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void createInterface(VBox root){
+        ObservableList<String> options = FXCollections.observableArrayList("Tekst", "Excel");
+        ComboBox comboBox = new ComboBox(options);
+        Button button = new Button("Save");
+        button.setOnAction(event -> saveSetting(comboBox.getValue()));
+
+        VBox kortingen = new VBox();
+        kortingen.setSpacing(10);
+        Label kortingenLabel = new Label("Kortingen");
+        kortingen.getChildren().add(kortingenLabel);
+        createKorting(kortingen,"Korting 1");
+        createKorting(kortingen,"Korting 2");
+        createKorting(kortingen,"Korting 3");
+
+        root.getChildren().addAll(comboBox, button,kortingen);
+    }
+
+    public void createKorting(VBox kortingen, String name){
+        CheckBox korting = new CheckBox(name);
+        kortingen.getChildren().add(korting);
     }
 }
