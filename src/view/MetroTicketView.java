@@ -6,13 +6,11 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -26,8 +24,12 @@ public class MetroTicketView {
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);
 		stage.setY(5);
-		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 650, 350);
+		VBox root = new VBox();
+		root.setSpacing(10);
+		root.setPadding(new Insets(10));
+		root.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+		root.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
+		Scene scene = new Scene(root, 650, 450);
 
 
 		createInterface(root);
@@ -42,99 +44,80 @@ public class MetroTicketView {
 
 	}
 
-	public void createInterface(BorderPane root) {
-		// Create a grid pane to hold the rectangles and the controls
-		GridPane gridPane = new GridPane();
+	public void createInterface(VBox root) {
+		createNewMetroCardBox(root);
+		createMetroDetailsMainBox(root);
+	}
 
-		// Create rectangles for each section
-		Rectangle rectangle1 = new Rectangle(600, 50, Color.LIGHTGRAY);
-		rectangle1.setStroke(Color.BLACK);
-		Rectangle rectangle2 = new Rectangle(600, 125, Color.LIGHTGRAY);
-		rectangle2.setStroke(Color.BLACK);
-		Rectangle rectangle3 = new Rectangle(600, 125, Color.LIGHTGRAY);
-		rectangle3.setStroke(Color.BLACK);
-
-		// Create a layout pane for the controls in the third section
+	public void createNewMetroCardBox(VBox root){
 		VBox vBox = new VBox();
+		vBox.setPadding(new Insets(15, 12, 15, 12));
+		vBox.setSpacing(10);
+		vBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+		vBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
 
-		//section one
-		// Create a grid pane to hold the button and the description text
-		GridPane gridPane1 = new GridPane();
+		Button newMetroCardButton = new Button("New metro card");
+		newMetroCardButton.setPrefSize(150, 20);
+		newMetroCardButton.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+		vBox.getChildren().add(newMetroCardButton);
 
-		// Create a button and a label
-		Button newMetroCardButton = new Button("New Metro Card");
-		Label descriptionLabel = new Label("Description text");
-
-		// Add the button and the label to the grid pane
-		gridPane1.add(newMetroCardButton, 0, 0);
-		gridPane1.add(descriptionLabel, 0, 1);
-
-		// Add the grid pane and the rectangle to the main grid pane
-		gridPane.add(rectangle1, 0, 0);
-		gridPane.add(gridPane1, 0, 0);
+		Label metroCardPriceTextField = new Label();
+		metroCardPriceTextField.setText("Metro card price is 2.5 free rides included");
+		metroCardPriceTextField.setStyle("-fx-text-fill: red;");
+		vBox.getChildren().add(metroCardPriceTextField);
 
 
-		//section two
-		GridPane gridPane2 = new GridPane();
+		root.getChildren().add(vBox);
+	}
 
+	public void createMetroDetailsMainBox(VBox root){
+		VBox vBox = new VBox();
+		vBox.setPadding(new Insets(15, 12, 15, 12));
+		vBox.setSpacing(10);
+		vBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+		vBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
+
+
+		GridPane gridPane = new GridPane();
 		Label selectMetroCardLabel = new Label("Select metro card");
-		ComboBox<String> metroCardComboBox = new ComboBox<>();
+		ComboBox<String> selectMetroCardComboBox = new ComboBox<>();
+		selectMetroCardComboBox.getItems().addAll("1", "2", "3");
+		gridPane.add(selectMetroCardLabel, 0, 0);
+		gridPane.add(selectMetroCardComboBox, 1, 0);
 
 		Label numberOfRidesLabel = new Label("Number of rides");
-		TextField numberOfRidesField = new TextField();
+		TextField numberOfRidesTextField = new TextField();
+		numberOfRidesTextField.setText("4");
+		gridPane.add(numberOfRidesLabel, 0, 1);
+		gridPane.add(numberOfRidesTextField, 1, 1);
 
-		Label higherEducationLabel = new Label("Higher education student?");
-		CheckBox higherEducationCheckBox = new CheckBox();
+		vBox.getChildren().addAll(gridPane);
 
-		Label optionsLabel = new Label("Options");
-		RadioButton optionARadioButton = new RadioButton("A");
-		RadioButton optionBRadioButton = new RadioButton("B");
-		RadioButton optionCRadioButton = new RadioButton("C");
-		ToggleGroup optionsToggleGroup = new ToggleGroup();
-		optionARadioButton.setToggleGroup(optionsToggleGroup);
-		optionBRadioButton.setToggleGroup(optionsToggleGroup);
-		optionCRadioButton.setToggleGroup(optionsToggleGroup);
+		VBox innerVBox = new VBox();
+		innerVBox.setPadding(new Insets(15, 12, 15, 12));
+		innerVBox.setSpacing(10);
+		innerVBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+		innerVBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
 
-		gridPane2.add(selectMetroCardLabel, 0, 0);
-		gridPane2.add(metroCardComboBox, 1, 0);
-		gridPane2.add(numberOfRidesLabel, 0, 1);
-		gridPane2.add(numberOfRidesField, 1, 1);
-		gridPane2.add(higherEducationLabel, 0, 2);
-		gridPane2.add(higherEducationCheckBox, 1, 2);
-		gridPane2.add(optionsLabel, 0, 3);
-		gridPane2.add(optionARadioButton, 1, 3);
-		gridPane2.add(optionBRadioButton, 2, 3);
-		gridPane2.add(optionCRadioButton, 3, 3);
+		Button addExtraRideButton = new Button("Add extra rides to metro card");
+		GridPane priceGridPane = new GridPane();
+		Label priceLabel = new Label("Total price");
+		TextField priceTextField = new TextField();
+		priceTextField.setText("0");
+		priceTextField.setEditable(false);
+		priceGridPane.add(priceLabel, 0, 0);
+		priceGridPane.add(priceTextField, 1, 0);
 
-		// Add the grid pane and the rectangle to the main grid pane
-		gridPane.add(rectangle2, 0, 1);
-		gridPane.add(gridPane2, 0, 1);
+		Label priceCalculationLabel = new Label("Basic price of ride is INSERT CALCULATION HERE");
+		priceCalculationLabel.setStyle("-fx-text-fill: red;");
 
-		//section three
-		// Create a button, a label, a text field, and two buttons
-		Button addExtraRidesButton = new Button("Add extra rides to metro card");
-		Label totalPriceLabel = new Label("Total price:");
-		TextField totalPriceField = new TextField();
-		totalPriceField.setEditable(false);
-		totalPriceField.setText("0");
-		totalPriceField.setMaxWidth(100); // set the width of the field to 100 pixels
+		HBox requestButtons = new HBox();
 		Button confirmRequestButton = new Button("Confirm request");
 		Button cancelRequestButton = new Button("Cancel request");
+		requestButtons.getChildren().addAll(confirmRequestButton, cancelRequestButton);
 
-		// Create a grid pane to hold the total price label and field
-		GridPane totalPricePane = new GridPane();
-
-		// Add the label and the field to the grid pane
-		totalPricePane.add(totalPriceLabel, 0, 0);
-		totalPricePane.add(totalPriceField, 1, 0);
-
-		// Add the label, the text field, and the buttons to the layout pane
-		vBox.getChildren().addAll(addExtraRidesButton, totalPricePane, confirmRequestButton, cancelRequestButton);
-
-		// Add the layout pane and the rectangle to the main grid pane
-		gridPane.add(rectangle3, 0, 2);
-		gridPane.add(vBox, 0, 2);
-
-		root.setCenter(gridPane);
+		innerVBox.getChildren().addAll(addExtraRideButton, priceGridPane, priceCalculationLabel, requestButtons);
+		vBox.getChildren().add(innerVBox);
+		root.getChildren().add(vBox);
 	}
 }
