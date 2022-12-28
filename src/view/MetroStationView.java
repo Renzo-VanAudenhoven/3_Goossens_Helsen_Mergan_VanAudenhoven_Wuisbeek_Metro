@@ -1,6 +1,8 @@
 package view;
 
 import controller.MetroStationViewController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -15,9 +17,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.ArrayList;
+
 public class MetroStationView {
 	
-	private Stage stage = new Stage();		
+	private Stage stage = new Stage();
+	private ObservableList<Integer> ids;
+	private ComboBox gate1ComboBox;
+	private ComboBox gate2ComboBox;
+	private ComboBox gate3ComboBox;
 	
 	public MetroStationView(MetroStationViewController controller){
 		controller.setMetroStationView(this);
@@ -32,9 +40,12 @@ public class MetroStationView {
 		root.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
 		root.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
 
-		createGate(root,"Gate 1");
-		createGate(root,"Gate 2");
-		createGate(root, "Gate 3");
+		this.gate1ComboBox = new ComboBox(this.ids);
+		createGate(root,"Gate 1",gate1ComboBox);
+		this.gate2ComboBox = new ComboBox(this.ids);
+		createGate(root,"Gate 2",gate2ComboBox);
+		this.gate3ComboBox = new ComboBox(this.ids);
+		createGate(root, "Gate 3",gate3ComboBox);
 
 
 		stage.setScene(scene);
@@ -42,7 +53,7 @@ public class MetroStationView {
 		stage.show();		
 	}
 
-	public void createGate(HBox root, String name) {
+	public void createGate(HBox root, String name, ComboBox gateComboBox) {
 		VBox gate1 = new VBox();
 		gate1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
 		gate1.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
@@ -57,8 +68,7 @@ public class MetroStationView {
 
 		// Add a label and a combo box for the metro card ID
 		Label metroCardIdLabel = new Label("Metrocard ID");
-		ComboBox<String> metroCardIdComboBox = new ComboBox<>();
-		gate1.getChildren().addAll(metroCardIdLabel, metroCardIdComboBox);
+		gate1.getChildren().addAll(metroCardIdLabel, gateComboBox);
 
 		// Add a button to scan the metro card
 		Button scanButton = new Button("Scan metrocard");
@@ -76,4 +86,10 @@ public class MetroStationView {
 		root.getChildren().add(gate1);
 	}
 
+	public void updateMetroCardIDList(ArrayList<Integer> ids) {
+		this.ids = FXCollections.observableArrayList(ids);
+		gate1ComboBox.setItems(this.ids);
+		gate2ComboBox.setItems(this.ids);
+		gate3ComboBox.setItems(this.ids);
+	}
 }

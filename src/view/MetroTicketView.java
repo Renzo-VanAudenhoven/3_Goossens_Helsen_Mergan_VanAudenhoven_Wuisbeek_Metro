@@ -1,6 +1,8 @@
 package view;
 
 import controller.MetroTicketViewController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 
 public class MetroTicketView {
 	private Stage stage = new Stage();
+	private ObservableList<Integer> ids;
+	private ComboBox selectMetroCardComboBox;
 
 	public MetroTicketView(MetroTicketViewController controller) {
 		controller.setMetroTicketView(this);
@@ -41,7 +45,8 @@ public class MetroTicketView {
 	}
 
 	public void updateMetroCardIDList(ArrayList<Integer> ids) {
-
+		this.ids = FXCollections.observableArrayList(ids);
+		selectMetroCardComboBox.setItems(this.ids);
 	}
 
 	public void createInterface(VBox root) {
@@ -80,8 +85,8 @@ public class MetroTicketView {
 
 		GridPane gridPane = new GridPane();
 		Label selectMetroCardLabel = new Label("Select metro card");
-		ComboBox<String> selectMetroCardComboBox = new ComboBox<>();
-		selectMetroCardComboBox.getItems().addAll("1", "2", "3");
+		this.selectMetroCardComboBox = new ComboBox(ids);
+
 		gridPane.add(selectMetroCardLabel, 0, 0);
 		gridPane.add(selectMetroCardComboBox, 1, 0);
 
