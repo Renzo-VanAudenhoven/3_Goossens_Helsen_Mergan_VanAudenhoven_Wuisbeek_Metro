@@ -36,7 +36,6 @@ public class SetupPane extends VBox {
 
     public void saveSetting(Object setting){
         String settingString;
-        //create a switch case if setting.tostring is equal to tekst or excel settingString = METROCARD_TEKST or METROCARD_EXCEL
         switch (setting.toString()){
             case "Tekst":
                 settingString = "METROCARDS_TEKST";
@@ -84,7 +83,6 @@ public class SetupPane extends VBox {
         Label kortingenLabel = new Label("Kortingen");
         kortingen.getChildren().add(kortingenLabel);
 
-        //for each discount in TicketPriceDiscountEnum add a checkbox to kortingen
         for (TicketPriceDiscountEnum discount : TicketPriceDiscountEnum.values()) {
             createKorting(kortingen, discount.getDiscountName());
         }

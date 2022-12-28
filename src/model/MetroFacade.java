@@ -3,6 +3,8 @@ package model;
 import controller.MetroCardOverviewPaneController;
 import controller.MetroStationViewController;
 import controller.MetroTicketViewController;
+import model.TicketPriceDecorator.TicketPrice;
+import model.TicketPriceDecorator.TicketPriceFactory;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
@@ -17,10 +19,12 @@ public class MetroFacade implements Subject{
     private LoadSaveStrategyFactory loadSaveStrategyFactory;
     private MetrocardDatabase metroCardDatabase;
     private Map<MetroEventsEnum, List<Observer>> observers = new HashMap<>();
+    private TicketPriceFactory ticketPriceFactory;
 
     public MetroFacade(){
         metroCardDatabase = new MetrocardDatabase();
         loadSaveStrategyFactory = new LoadSaveStrategyFactory();
+        ticketPriceFactory = new TicketPriceFactory();
 
         for(MetroEventsEnum metroEventsEnum : MetroEventsEnum.values()){
             observers.put(metroEventsEnum, new ArrayList<Observer>());
@@ -70,4 +74,17 @@ public class MetroFacade implements Subject{
         metroCardDatabase.newMetroCard();
         notifyObservers(MetroEventsEnum.BUY_METROCARD);
     }
+
+    public double getPrice(int id, int aantalRitten, boolean isStudent, boolean is64Plus) {
+        MetroCard metroCard = metroCardDatabase.getMetroCard(id);
+        TicketPrice ticketPrice = ticketPriceFactory.createTicketPrice(is64Plus, isStudent, metroCard);
+        return ticketPrice.getPrice() * aantalRitten;
+    }
+
+    public String getPriceText(int id, boolean isStudent, boolean is64Plus) {
+        MetroCard metroCard = metroCardDatabase.getMetroCard(id);
+        TicketPrice ticketPrice = ticketPriceFactory.createTicketPrice(is64Plus, isStudent, metroCard);
+        return ticketPrice.getPriceText();
+    }
+
 }

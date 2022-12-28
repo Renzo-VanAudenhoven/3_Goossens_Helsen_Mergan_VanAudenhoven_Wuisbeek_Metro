@@ -31,4 +31,12 @@ public class MetroTicketViewController implements Observer {
     public void newMetroCard() {
         metroFacade.newMetroCard();
     }
+    public double getPrice(int id, int aantalRitten, boolean isStudent, boolean is64Plus) {
+        return metroFacade.getPrice(id, aantalRitten, isStudent, is64Plus);
+    }
+
+    public String getPriceText(int id, boolean isStudent, boolean is64Plus) {
+        return metroFacade.getPriceText(id, isStudent, is64Plus);
+    }
+
 }

@@ -2,7 +2,7 @@ package model.TicketPriceDecorator;
 
 public class BasicTicketPrice extends TicketPrice{
     private double price = 2.10;
-    private String priceText = "basic price of ride is " + price + "€";
+    private String priceText = "Basic price of ride is " + price + "€";
 
     public BasicTicketPrice() {
 

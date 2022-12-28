@@ -3,20 +3,10 @@ package model.TicketPriceDecorator;
 import model.MetroCard;
 
 public abstract class TicketPrice {
-    private boolean is24Min;
     private boolean is64Plus;
     private boolean isStudent;
     private String attribute;
     private MetroCard metroCard;
-
-
-    public boolean isIs24Min() {
-        return is24Min;
-    }
-
-    public void setIs24Min(boolean is24Min) {
-        this.is24Min = is24Min;
-    }
 
     public boolean isIs64Plus() {
         return is64Plus;

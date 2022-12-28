@@ -110,7 +110,15 @@ public class MetrocardDatabase {
         data.put(metroCard.getKaartID(), metroCard);
     }
 
-
+    public MetroCard getMetroCard(int id){
+        ArrayList<MetroCard> metroCards = getMetroCardList();
+        for (MetroCard c : metroCards){
+            if (c.getKaartID() == id){
+                return c;
+            }
+        }
+        return null;
+    }
 
 
 
