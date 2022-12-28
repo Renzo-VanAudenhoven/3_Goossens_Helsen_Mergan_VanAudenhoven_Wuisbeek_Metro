@@ -1,18 +1,18 @@
 package model.TicketPriceDecorator;
 
 public enum TicketPriceDiscountEnum {
-    AGE64PLUSDISCOUNT(0.5),
-    CHRISTMASLEAVEDISCOUNT(0.5),
-    STUDENTDISCOUNT(0.5),
-    FREQUENTTRAVELLERDISCOUNT(0.5);
+    AGE64PLUSDISCOUNT("Age 64+ discount"),
+    CHRISTMASLEAVEDISCOUNT("Christmas leave discount"),
+    STUDENTDISCOUNT("Student discount"),
+    FREQUENTTRAVELLERDISCOUNT("Frequent traveller discount");
 
-    private double discount;
+    private String discountName;
 
-    TicketPriceDiscountEnum(double discount) {
-        this.discount = discount;
+    TicketPriceDiscountEnum(String discountName) {
+        this.discountName = discountName;
     }
 
-    public double getDiscount() {
-        return discount;
+    public String getDiscountName() {
+        return discountName;
     }
 }
