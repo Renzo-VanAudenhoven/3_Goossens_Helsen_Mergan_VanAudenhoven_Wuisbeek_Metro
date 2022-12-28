@@ -48,4 +48,5 @@ public class MetroCard {
     public String toString(){
     	return "KaartID: " + kaartID + " Aankoopdatum: " + aankoopdatum + " Ritten beschikbaar: " + rittenBeschikbaar + " Ritten verbruikt: " + rittenVerbruikt;
     }
+
 }

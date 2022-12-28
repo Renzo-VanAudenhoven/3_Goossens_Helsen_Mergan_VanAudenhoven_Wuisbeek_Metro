@@ -34,6 +34,13 @@ public class MetrocardDatabase {
         for (Map.Entry<Integer, MetroCard> entry : data.entrySet()) {
             metroCards.add(entry.getValue());
         }
+        Collections.sort(metroCards, new Comparator<MetroCard>() {
+            @Override
+            public int compare(MetroCard o1, MetroCard o2) {
+                return o1.getKaartID() - o2.getKaartID();
+            }
+        });
+
         return metroCards;
     }
 
@@ -77,4 +84,34 @@ public class MetrocardDatabase {
             }
         }
     }
+
+    public int getHighestID(){
+        int highestID = 0;
+        Object[] list = data.keySet().toArray();
+        for (Object id : list){
+            int intId = Integer.parseInt(id.toString());
+            if (intId > highestID) {
+                highestID = intId;
+            }
+        }
+        return highestID;
+    }
+
+    public String getTodayFormattedDate(){
+        Calendar cal = Calendar.getInstance();
+        int month = cal.get(Calendar.MONTH) + 1;
+        int year = cal.get(Calendar.YEAR);
+        return month + "#" + year;
+    }
+
+
+    public void newMetroCard(){
+        MetroCard metroCard = new MetroCard(getHighestID()+1, getTodayFormattedDate(), 2, 0);
+        data.put(metroCard.getKaartID(), metroCard);
+    }
+
+
+
+
+
 }

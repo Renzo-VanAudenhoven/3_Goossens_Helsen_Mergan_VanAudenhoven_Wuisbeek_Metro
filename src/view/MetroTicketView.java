@@ -21,9 +21,11 @@ public class MetroTicketView {
 	private Stage stage = new Stage();
 	private ObservableList<Integer> ids;
 	private ComboBox selectMetroCardComboBox;
+	private MetroTicketViewController controller;
 
 	public MetroTicketView(MetroTicketViewController controller) {
 		controller.setMetroTicketView(this);
+		this.controller = controller;
 		stage.setTitle("METROTICKET VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);
@@ -49,6 +51,10 @@ public class MetroTicketView {
 		selectMetroCardComboBox.setItems(this.ids);
 	}
 
+	private void newMetroCard() {
+		controller.newMetroCard();
+	}
+
 	public void createInterface(VBox root) {
 		createNewMetroCardBox(root);
 		createMetroDetailsMainBox(root);
@@ -62,6 +68,7 @@ public class MetroTicketView {
 		vBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
 
 		Button newMetroCardButton = new Button("New metro card");
+		newMetroCardButton.setOnAction(event -> newMetroCard());
 		newMetroCardButton.setPrefSize(150, 20);
 		newMetroCardButton.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
 		vBox.getChildren().add(newMetroCardButton);
@@ -73,6 +80,7 @@ public class MetroTicketView {
 
 		root.getChildren().add(vBox);
 	}
+
 
 	public void createMetroDetailsMainBox(VBox root){
 		VBox vBox = new VBox();
