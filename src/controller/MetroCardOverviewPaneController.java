@@ -23,7 +23,6 @@ public class MetroCardOverviewPaneController implements Observer {
 
     @Override
     public void update() {
-        metroFacade.load();
         ArrayList<MetroCard> metrocards = metroFacade.getMetroCardList();
         metroCardOverviewPane.updateMetroCardList(metrocards);
     }

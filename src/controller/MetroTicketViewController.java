@@ -5,6 +5,8 @@ import model.MetroFacade;
 import model.Observer;
 import view.MetroTicketView;
 
+import java.util.ArrayList;
+
 public class MetroTicketViewController implements Observer {
     private MetroFacade metroFacade;
     private MetroTicketView metroTicketView;
@@ -14,8 +16,14 @@ public class MetroTicketViewController implements Observer {
         metroFacade.addObserver(MetroEventsEnum.OPEN_METROSTATION,this);
     }
 
+    public void setMetroTicketView(MetroTicketView metroTicketView) {
+        this.metroTicketView = metroTicketView;
+    }
+
 
     @Override
     public void update() {
+        ArrayList<Integer> ids = metroFacade.getMetroCardIDList();
+        metroTicketView.updateMetroCardIDList(ids);
     }
 }

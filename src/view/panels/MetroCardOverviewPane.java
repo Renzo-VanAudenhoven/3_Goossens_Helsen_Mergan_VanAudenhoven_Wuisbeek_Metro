@@ -68,9 +68,6 @@ public class MetroCardOverviewPane extends GridPane{
 	}
 	public void updateMetroCardList(ArrayList<MetroCard> metrocards){
 		this.metrocards = FXCollections.observableArrayList(metrocards);
-		for (MetroCard metrocard : metrocards) {
-			System.out.println(metrocard.toString());
-		}
 		table.setItems(this.metrocards);
 		table.refresh();
 	}

@@ -14,6 +14,9 @@ public class MetroStationViewController implements Observer {
         metroFacade.addObserver(MetroEventsEnum.OPEN_METROSTATION,this);
     }
 
+    public void setMetroStationView(MetroStationView metroStationView) {
+        this.metroStationView = metroStationView;
+    }
 
     @Override
     public void update() {
