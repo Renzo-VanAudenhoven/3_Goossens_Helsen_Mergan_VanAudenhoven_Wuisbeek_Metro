@@ -19,7 +19,7 @@ public class AdminView {
 		stage.setX(660);
 		stage.setY(5);
 		Group root = new Group();
-		Scene scene = new Scene(root, 690, 885);
+		Scene scene = new Scene(root, 690, 905);
 		BorderPane borderPane = new AdminMainPane(controlCenterPaneController, metroCardOverviewPaneController);
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());

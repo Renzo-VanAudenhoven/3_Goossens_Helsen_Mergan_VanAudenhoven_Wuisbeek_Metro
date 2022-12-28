@@ -32,7 +32,7 @@ public class MetroStationView {
 		stage.setTitle("METRO STATION VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);
-		stage.setY(490);
+		stage.setY(510);
 		HBox root = new HBox();
 		Scene scene = new Scene(root, 650, 400);
 		root.setSpacing(10);

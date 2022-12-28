@@ -33,7 +33,7 @@ public class MetroTicketView {
 		root.setPadding(new Insets(10));
 		root.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
 		root.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
-		Scene scene = new Scene(root, 650, 450);
+		Scene scene = new Scene(root, 650, 470);
 
 
 		createInterface(root);
@@ -71,7 +71,6 @@ public class MetroTicketView {
 		metroCardPriceTextField.setStyle("-fx-text-fill: red;");
 		vBox.getChildren().add(metroCardPriceTextField);
 
-
 		root.getChildren().add(vBox);
 	}
 
@@ -97,6 +96,23 @@ public class MetroTicketView {
 		gridPane.add(numberOfRidesTextField, 1, 1);
 
 		vBox.getChildren().addAll(gridPane);
+
+		CheckBox checkBox = new CheckBox("higher education student?");
+
+		RadioButton option1RadioButton = new RadioButton("younger than 26 years");
+		RadioButton option2RadioButton = new RadioButton("older than 64 years");
+		RadioButton option3RadioButton = new RadioButton("between 26 and 64 years");
+
+		ToggleGroup optionsToggleGroup = new ToggleGroup();
+		HBox optionsHbox = new HBox();
+		optionsHbox.setSpacing(10);
+
+		option1RadioButton.setToggleGroup(optionsToggleGroup);
+		option2RadioButton.setToggleGroup(optionsToggleGroup);
+		option3RadioButton.setToggleGroup(optionsToggleGroup);
+
+		optionsHbox.getChildren().addAll(option1RadioButton, option2RadioButton, option3RadioButton);
+		vBox.getChildren().addAll(checkBox, optionsHbox);
 
 		VBox innerVBox = new VBox();
 		innerVBox.setPadding(new Insets(15, 12, 15, 12));
