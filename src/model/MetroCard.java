@@ -1,5 +1,8 @@
 package model;
 
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
 public class MetroCard {
     private int kaartID;
     private String aankoopdatum;
@@ -52,4 +55,26 @@ public class MetroCard {
     public void addRitten(int aantalRitten) {
         rittenBeschikbaar += aantalRitten;
     }
+
+    public boolean isExpired() {
+        Calendar currentDate = Calendar.getInstance();
+        Calendar aankoopDate = Calendar.getInstance();
+
+        int month = Integer.parseInt(this.aankoopdatum.split("#")[0]);
+        int year = Integer.parseInt(this.aankoopdatum.split("#")[1]);
+        aankoopDate.set(Calendar.MONTH, month);
+        aankoopDate.set(Calendar.YEAR, year);
+
+        if (aankoopDate.before(currentDate)) {
+            long diff = currentDate.getTimeInMillis() - aankoopDate.getTimeInMillis();
+            long days = TimeUnit.MILLISECONDS.toDays(diff);
+            return days > 365;
+        }
+        return false;
+    }
+
+    public boolean hasRittenBeschikbaar(){
+        return rittenBeschikbaar > 0;
+    }
+
 }

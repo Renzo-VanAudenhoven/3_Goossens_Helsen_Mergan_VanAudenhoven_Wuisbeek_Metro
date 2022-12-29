@@ -1,6 +1,7 @@
 package view;
 
 import controller.MetroStationViewController;
+import controller.MetroTicketViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -23,12 +24,14 @@ public class MetroStationView {
 	
 	private Stage stage = new Stage();
 	private ObservableList<Integer> ids;
+	private MetroStationViewController controller;
 	private ComboBox gate1ComboBox;
 	private ComboBox gate2ComboBox;
 	private ComboBox gate3ComboBox;
 	
 	public MetroStationView(MetroStationViewController controller){
 		controller.setMetroStationView(this);
+		this.controller = controller;
 		stage.setTitle("METRO STATION VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);
@@ -54,36 +57,37 @@ public class MetroStationView {
 	}
 
 	public void createGate(HBox root, String name, ComboBox gateComboBox) {
-		VBox gate1 = new VBox();
-		gate1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
-		gate1.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
-		gate1.setMaxHeight(300);
-		gate1.setPrefWidth(200);
-		gate1.setSpacing(5);
-		gate1.setPadding(new Insets(10));
+		VBox gate = new VBox();
+		gate.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+		gate.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
+		gate.setMaxHeight(300);
+		gate.setPrefWidth(200);
+		gate.setSpacing(5);
+		gate.setPadding(new Insets(10));
 
 		// Add a label at the top
 		Label label = new Label(name);
-		gate1.getChildren().add(label);
+		gate.getChildren().add(label);
 
 		// Add a label and a combo box for the metro card ID
 		Label metroCardIdLabel = new Label("Metrocard ID");
-		gate1.getChildren().addAll(metroCardIdLabel, gateComboBox);
+		gate.getChildren().addAll(metroCardIdLabel, gateComboBox);
 
 		// Add a button to scan the metro card
 		Button scanButton = new Button("Scan metrocard");
-		gate1.getChildren().add(scanButton);
+		scanButton.setOnAction(event -> scanMetroGate());
+		gate.getChildren().add(scanButton);
 
 		// Add a button to walk through the gate
 		Button walkThroughButton = new Button("Walk through gate");
-		gate1.getChildren().add(walkThroughButton);
+		gate.getChildren().add(walkThroughButton);
 
 		// Add a text field to show the scanned card info
 		TextField infoField = new TextField("Card 3 is scanned");
 		infoField.setEditable(false);
-		gate1.getChildren().add(infoField);
+		gate.getChildren().add(infoField);
 
-		root.getChildren().add(gate1);
+		root.getChildren().add(gate);
 	}
 
 	public void updateMetroCardIDList(ArrayList<Integer> ids) {
@@ -92,4 +96,10 @@ public class MetroStationView {
 		gate2ComboBox.setItems(this.ids);
 		gate3ComboBox.setItems(this.ids);
 	}
+
+	public void scanMetroGate(){
+		//int metroCardID =
+		controller.scanMetroGate();
+	}
+
 }

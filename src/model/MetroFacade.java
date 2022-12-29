@@ -20,11 +20,13 @@ public class MetroFacade implements Subject{
     private MetrocardDatabase metroCardDatabase;
     private Map<MetroEventsEnum, List<Observer>> observers = new HashMap<>();
     private TicketPriceFactory ticketPriceFactory;
+    private MetroStation metroStation;
 
     public MetroFacade(){
         loadSaveStrategyFactory = new LoadSaveStrategyFactory();
         metroCardDatabase = new MetrocardDatabase(loadSaveStrategyFactory);
         ticketPriceFactory = new TicketPriceFactory();
+        metroStation = new MetroStation();
 
         for(MetroEventsEnum metroEventsEnum : MetroEventsEnum.values()){
             observers.put(metroEventsEnum, new ArrayList<Observer>());
@@ -95,6 +97,14 @@ public class MetroFacade implements Subject{
     public void confirmRequest(int id, int aantalRitten) {
         metroCardDatabase.getMetroCard(id).addRitten(aantalRitten);
         notifyObservers(MetroEventsEnum.CONFIRM_REQUEST);
+    }
+
+    public void scanMetroGate(int metroCardID, int gateID){
+        MetroCard metroCard = metroCardDatabase.getMetroCard(metroCardID);
+        if (!metroCard.isExpired() && metroCard.hasRittenBeschikbaar()){
+            metroStation.scanMetroGate(gateID);
+            notifyObservers(MetroEventsEnum.SCAN_METROGATE);
+        }
     }
 
 }

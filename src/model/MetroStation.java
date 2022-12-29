@@ -1,10 +1,12 @@
 package model;
 
-public class MetroStation {
-    private MetroFacade metroFacade;
+import java.util.ArrayList;
 
-    public MetroStation(MetroFacade facade){
-        this.metroFacade = facade;
+public class MetroStation {
+    ArrayList<MetroGate> metroGates = new ArrayList<>();
+
+    public void scanMetroGate(int id){
+        metroGates.get(id).scanMetroGate();
     }
 
 }
