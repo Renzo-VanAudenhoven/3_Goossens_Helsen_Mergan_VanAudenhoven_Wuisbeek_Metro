@@ -31,4 +31,8 @@ public class MetroStationViewController implements Observer {
     public void scanMetroGate(int metroCardID, int gateIndex) {
         metroFacade.scanMetroGate(metroCardID, gateIndex);
     }
+
+    public void walkThroughGate(int gateIndex) {
+        metroFacade.walkThroughGate(gateIndex);
+    }
 }

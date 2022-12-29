@@ -79,6 +79,7 @@ public class MetroStationView {
 
 		// Add a button to walk through the gate
 		Button walkThroughButton = new Button("Walk through gate");
+		walkThroughButton.setOnAction(event -> walkThroughGate(gateIndex));
 		gate.getChildren().add(walkThroughButton);
 
 		// Add a text field to show the scanned card info
@@ -108,11 +109,15 @@ public class MetroStationView {
 		int metroCardID = Integer.parseInt(gateComboBox.getValue().toString());
 		TextField infoField = (TextField) currentGate.getChildren().get(5);
 		try{
-			controller.scanMetroGate(metroCardID, gateIndex + 1);
+			controller.scanMetroGate(metroCardID, gateIndex);
 		} catch (Exception e) {
 			infoField.setText(e.getMessage());
 		}
 
+	}
+
+	public void walkThroughGate(int gateIndex){
+		controller.walkThroughGate(gateIndex);
 	}
 
 }

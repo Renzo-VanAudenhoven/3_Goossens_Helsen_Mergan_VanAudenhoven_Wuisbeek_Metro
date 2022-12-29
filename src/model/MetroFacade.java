@@ -119,4 +119,8 @@ public class MetroFacade implements Subject{
     public void deactivateGate(int gateid) {
         metroStation.deactivateGate(gateid);
     }
+
+    public void walkThroughGate(int gateIndex) {
+        metroStation.walkThroughGate(gateIndex);
+    }
 }

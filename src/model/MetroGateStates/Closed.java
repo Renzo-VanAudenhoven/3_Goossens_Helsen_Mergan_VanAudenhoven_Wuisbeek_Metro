@@ -12,6 +12,7 @@ public class Closed implements MetroGateState {
     public void walkThroughGate(StateContext context) {
         System.out.println("Trying to walk through closed gate");
         System.out.println("create alert");
+        context.setState(new Closed());
     }
 
     @Override
@@ -20,6 +21,7 @@ public class Closed implements MetroGateState {
         context.setState(new Inactive());
     }
 
+    @Override
     public String toString() {
         return "Closed";
     }

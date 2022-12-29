@@ -116,9 +116,9 @@ public class ControlCenterPane extends VBox {
 
         Label gateLabel = new Label("Gate " + gateid + " / " + status);
         Button activateButton = new Button("Activate");
-        activateButton.setOnAction(event -> activateGate(gateid));
+        activateButton.setOnAction(event -> activateGate(gateid-1));
         Button deactivateButton = new Button("Deactivate");
-        deactivateButton.setOnAction(event -> deactivateGate(gateid));
+        deactivateButton.setOnAction(event -> deactivateGate(gateid-1));
         Label scannedCardsLabel = new Label("# scanned cards");
         TextField scannedCardsField = new TextField();
         scannedCardsField.setEditable(false);

@@ -11,8 +11,8 @@ public class MetroStation {
         }
     }
 
-    public void scanMetroGate(int id){
-        metroGates.get(id).scanMetroGate();
+    public void scanMetroGate(int gateIndex){
+        metroGates.get(gateIndex).scanMetroGate();
     }
 
     public void activateGate(int gateid) {
@@ -21,5 +21,9 @@ public class MetroStation {
 
     public void deactivateGate(int gateid) {
         metroGates.get(gateid).deactivate();
+    }
+
+    public void walkThroughGate(int gateIndex) {
+        metroGates.get(gateIndex).walkThroughGate();
     }
 }

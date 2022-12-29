@@ -8,6 +8,7 @@ public class Inactive implements MetroGateState {
         context.setState(new Closed());
     }
 
+    @Override
     public String toString() {
         return "Inactive";
     }

@@ -14,6 +14,7 @@ public class Open implements MetroGateState {
         context.setState(new Closed());
     }
 
+    @Override
     public String toString() {
         return "Open";
     }
