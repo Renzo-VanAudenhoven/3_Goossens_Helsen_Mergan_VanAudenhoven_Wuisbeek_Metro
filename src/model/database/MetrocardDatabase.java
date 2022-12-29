@@ -16,13 +16,13 @@ import model.database.utilities.*;
 
 public class MetrocardDatabase {
     private Map<Integer, MetroCard> data;
-    private LoadSaveStrategyFactory loadSaveFactory = new LoadSaveStrategyFactory();
+    private LoadSaveStrategyFactory loadSaveFactory;
     private LoadSaveStrategy loadSaveStrategy;
     private File tekst = new File("src/bestanden/metrocards.txt");
     private File excel = new File("src/bestanden/metrocards.xls");
 
-    public MetrocardDatabase(){
-
+    public MetrocardDatabase(LoadSaveStrategyFactory loadSaveFactory){
+        this.loadSaveFactory = loadSaveFactory;
     }
 
     public void setLoadSaveStrategy(LoadSaveStrategy strategy){
@@ -69,7 +69,6 @@ public class MetrocardDatabase {
     }
 
     public void save(){
-        LoadSaveStrategy loadSaveStrategy = loadSaveFactory.createLoadSaveStrategy();
         if (loadSaveStrategy.getClass().getSimpleName().equals("MetrocardsTekstLoadSaveStrategy")){
             try {
                 loadSaveStrategy.save(data,tekst);

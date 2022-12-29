@@ -22,8 +22,8 @@ public class MetroFacade implements Subject{
     private TicketPriceFactory ticketPriceFactory;
 
     public MetroFacade(){
-        metroCardDatabase = new MetrocardDatabase();
         loadSaveStrategyFactory = new LoadSaveStrategyFactory();
+        metroCardDatabase = new MetrocardDatabase(loadSaveStrategyFactory);
         ticketPriceFactory = new TicketPriceFactory();
 
         for(MetroEventsEnum metroEventsEnum : MetroEventsEnum.values()){
@@ -77,7 +77,6 @@ public class MetroFacade implements Subject{
 
     public void newMetroCard() {
         metroCardDatabase.newMetroCard();
-        metroCardDatabase.save();
         notifyObservers(MetroEventsEnum.BUY_METROCARD);
     }
 
