@@ -29,15 +29,26 @@ public class ControlCenterPane extends VBox {
         root.setSpacing(10);
 
         createInterface(root);
-
-        Button button = new Button("Open metrostation");
-        button.setOnAction(event -> openMetroStation());
-        root.getChildren().add(button);
+        HBox container = new HBox();
+        container.setSpacing(10);
+        container.setPadding(new Insets(10));
+        Button buttonOpen = new Button("Open metrostation");
+        Button buttonClose = new Button("Close metrostation");
+        buttonOpen.setOnAction(event -> openMetroStation());
+        buttonClose.setOnAction(event -> closeMetroStation());
+        container.getChildren().addAll(buttonOpen, buttonClose);
+        root.getChildren().add(container);
         this.getChildren().add(root);
     }
 
     public void openMetroStation() {
         controlCenterPaneController.openMetroStation();
+    }
+
+
+
+    public void closeMetroStation() {
+        controlCenterPaneController.closeMetroStation();
     }
 
     public void createInterface(VBox root){

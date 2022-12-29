@@ -69,7 +69,6 @@ public class MetroTicketView {
 		Button newMetroCardButton = new Button("New metro card");
 		newMetroCardButton.setOnAction(event -> newMetroCard());
 		newMetroCardButton.setPrefSize(150, 20);
-		newMetroCardButton.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
 		vBox.getChildren().add(newMetroCardButton);
 
 		Label metroCardPriceTextField = new Label();

@@ -54,6 +54,11 @@ public class MetroFacade implements Subject{
         notifyObservers(MetroEventsEnum.OPEN_METROSTATION);
     }
 
+    public void closeMetroStation() {
+        // misschien nog opslagformaat aanpassen hier pas doen
+        metroCardDatabase.save();
+    }
+
     public ArrayList<MetroCard> getMetroCardList(){
         return metroCardDatabase.getMetroCardList();
     }
@@ -90,7 +95,6 @@ public class MetroFacade implements Subject{
 
     public void confirmRequest(int id, int aantalRitten) {
         metroCardDatabase.getMetroCard(id).addRitten(aantalRitten);
-        metroCardDatabase.save();
         notifyObservers(MetroEventsEnum.CONFIRM_REQUEST);
     }
 

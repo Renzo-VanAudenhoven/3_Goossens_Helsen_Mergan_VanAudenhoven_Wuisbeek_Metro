@@ -21,4 +21,8 @@ public class ControlCenterPaneController implements Observer {
     public void openMetroStation(){
         metroFacade.openMetroStation();
     }
+
+    public void closeMetroStation(){
+        metroFacade.closeMetroStation();
+    }
 }
