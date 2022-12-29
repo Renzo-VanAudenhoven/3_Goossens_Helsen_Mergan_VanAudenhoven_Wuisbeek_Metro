@@ -25,4 +25,12 @@ public class ControlCenterPaneController implements Observer {
     public void closeMetroStation(){
         metroFacade.closeMetroStation();
     }
+
+    public void activateGate(int gateid) {
+        metroFacade.activateGate(gateid);
+    }
+
+    public void deactivateGate(int gateid) {
+        metroFacade.deactivateGate(gateid);
+    }
 }

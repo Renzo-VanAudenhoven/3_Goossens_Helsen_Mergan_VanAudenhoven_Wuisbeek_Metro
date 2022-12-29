@@ -19,4 +19,8 @@ public class Closed implements MetroGateState {
         System.out.println("Gate is deactivating");
         context.setState(new Inactive());
     }
+
+    public String toString() {
+        return "Closed";
+    }
 }

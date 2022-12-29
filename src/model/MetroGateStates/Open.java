@@ -13,4 +13,8 @@ public class Open implements MetroGateState {
         System.out.println("Walking through gate");
         context.setState(new Closed());
     }
+
+    public String toString() {
+        return "Open";
+    }
 }

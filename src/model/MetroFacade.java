@@ -101,10 +101,22 @@ public class MetroFacade implements Subject{
 
     public void scanMetroGate(int metroCardID, int gateID){
         MetroCard metroCard = metroCardDatabase.getMetroCard(metroCardID);
-        if (!metroCard.isExpired() && metroCard.hasRittenBeschikbaar()){
-            metroStation.scanMetroGate(gateID);
-            notifyObservers(MetroEventsEnum.SCAN_METROGATE);
-        }
+            if (!metroCard.isExpired() && metroCard.hasRittenBeschikbaar()){
+                metroStation.scanMetroGate(gateID);
+                notifyObservers(MetroEventsEnum.SCAN_METROGATE);
+            }
+//        metroCard.isExpired();
+//        metroCard.hasRittenBeschikbaar();
+//        metroStation.scanMetroGate(gateID);
+//        notifyObservers(MetroEventsEnum.SCAN_METROGATE);
+
     }
 
+    public void activateGate(int gateid){
+        metroStation.activateGate(gateid);
+    }
+
+    public void deactivateGate(int gateid) {
+        metroStation.deactivateGate(gateid);
+    }
 }

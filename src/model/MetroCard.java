@@ -68,12 +68,17 @@ public class MetroCard {
         if (aankoopDate.before(currentDate)) {
             long diff = currentDate.getTimeInMillis() - aankoopDate.getTimeInMillis();
             long days = TimeUnit.MILLISECONDS.toDays(diff);
-            return days > 365;
+            if (days > 365) {
+                throw new IllegalArgumentException("Card " + this.kaartID + " is expired!");
+            }
         }
         return false;
     }
 
     public boolean hasRittenBeschikbaar(){
+        if (rittenBeschikbaar<0){
+            throw new IllegalArgumentException("Card " + this.kaartID + " has no rides left");
+        }
         return rittenBeschikbaar > 0;
     }
 

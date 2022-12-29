@@ -28,7 +28,7 @@ public class MetroStationViewController implements Observer {
         metroStationView.updateMetroCardIDList(ids);
     }
 
-    public void scanMetroGate(){
-        metroFacade.scanMetroGate();
+    public void scanMetroGate(int metroCardID, int gateIndex) {
+        metroFacade.scanMetroGate(metroCardID, gateIndex);
     }
 }

@@ -12,10 +12,14 @@ import javafx.scene.paint.Color;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
+import java.util.ArrayList;
+
 
 public class ControlCenterPane extends VBox {
 
     private ControlCenterPaneController controlCenterPaneController;
+    private ArrayList<VBox> gates = new ArrayList<>();
+
 
     public ControlCenterPane(ControlCenterPaneController controlCenterPaneController) {
         this.controlCenterPaneController = controlCenterPaneController;
@@ -90,13 +94,19 @@ public class ControlCenterPane extends VBox {
         hbox.setSpacing(20);
         hbox.setPadding(new Insets(10));
 
-        createGateBox(hbox, "Gate 1", "inactive");
-        createGateBox(hbox, "Gate 2", "active");
-        createGateBox(hbox, "Gate 3", "inactive");
+        for (int i = 0; i < 3; i++) {
+            gates.add(new VBox());
+            createGateBox(hbox, (i + 1), gates.get(i), "inactive");
+        }
+
+//        createGateBox(hbox, "Gate 1", "inactive");
+//        createGateBox(hbox, "Gate 2", "active");
+//        createGateBox(hbox, "Gate 3", "inactive");
+
         root.getChildren().addAll(hbox);
     }
 
-    public void createGateBox(HBox hbox, String name, String status){
+    public void createGateBox(HBox hbox, int gateid, VBox gate, String status){
         VBox vbox = new VBox();
         vbox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
         vbox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
@@ -104,9 +114,11 @@ public class ControlCenterPane extends VBox {
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10));
 
-        Label gateLabel = new Label(name +" / "+ status);
+        Label gateLabel = new Label("Gate " + gateid + " / " + status);
         Button activateButton = new Button("Activate");
+        activateButton.setOnAction(event -> activateGate(gateid));
         Button deactivateButton = new Button("Deactivate");
+        deactivateButton.setOnAction(event -> deactivateGate(gateid));
         Label scannedCardsLabel = new Label("# scanned cards");
         TextField scannedCardsField = new TextField();
         scannedCardsField.setEditable(false);
@@ -130,5 +142,13 @@ public class ControlCenterPane extends VBox {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         root.getChildren().addAll(alertsLabel,scrollPane);
+    }
+
+    public void activateGate(int gateid){
+        controlCenterPaneController.activateGate(gateid);
+    }
+
+    public void deactivateGate(int gateid){
+        controlCenterPaneController.deactivateGate(gateid);
     }
 }

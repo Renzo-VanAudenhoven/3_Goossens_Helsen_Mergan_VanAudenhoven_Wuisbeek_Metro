@@ -7,4 +7,8 @@ public class Inactive implements MetroGateState {
         System.out.println("Gate is activating");
         context.setState(new Closed());
     }
+
+    public String toString() {
+        return "Inactive";
+    }
 }

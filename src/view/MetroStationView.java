@@ -8,10 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -25,9 +22,7 @@ public class MetroStationView {
 	private Stage stage = new Stage();
 	private ObservableList<Integer> ids;
 	private MetroStationViewController controller;
-	private ComboBox gate1ComboBox;
-	private ComboBox gate2ComboBox;
-	private ComboBox gate3ComboBox;
+	private ArrayList<VBox> gates = new ArrayList<>();
 	
 	public MetroStationView(MetroStationViewController controller){
 		controller.setMetroStationView(this);
@@ -43,21 +38,24 @@ public class MetroStationView {
 		root.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
 		root.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
 
-		this.gate1ComboBox = new ComboBox(this.ids);
-		createGate(root,"Gate 1",gate1ComboBox);
-		this.gate2ComboBox = new ComboBox(this.ids);
-		createGate(root,"Gate 2",gate2ComboBox);
-		this.gate3ComboBox = new ComboBox(this.ids);
-		createGate(root, "Gate 3",gate3ComboBox);
+//		this.gate1 = new VBox();
+//		createGate(root,"Gate 1",gate1,1);
+//		this.gate2 = new VBox();
+//		createGate(root,"Gate 2",gate2,2);
+//		this.gate3 = new VBox();
+//		createGate(root, "Gate 3",gate3,3);
 
+		for (int i = 0; i < 3; i++) {
+			gates.add(new VBox());
+			createGate(root, "Gate " + (i + 1), gates.get(i), i);
+		}
 
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		
 	}
 
-	public void createGate(HBox root, String name, ComboBox gateComboBox) {
-		VBox gate = new VBox();
+	public void createGate(HBox root, String name, VBox gate, int gateIndex) {
 		gate.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
 		gate.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
 		gate.setMaxHeight(300);
@@ -70,12 +68,13 @@ public class MetroStationView {
 		gate.getChildren().add(label);
 
 		// Add a label and a combo box for the metro card ID
+		ComboBox gateComboBox = new ComboBox(this.ids);
 		Label metroCardIdLabel = new Label("Metrocard ID");
 		gate.getChildren().addAll(metroCardIdLabel, gateComboBox);
 
 		// Add a button to scan the metro card
 		Button scanButton = new Button("Scan metrocard");
-		scanButton.setOnAction(event -> scanMetroGate());
+		scanButton.setOnAction(event -> scanMetroGate(gateIndex));
 		gate.getChildren().add(scanButton);
 
 		// Add a button to walk through the gate
@@ -92,14 +91,28 @@ public class MetroStationView {
 
 	public void updateMetroCardIDList(ArrayList<Integer> ids) {
 		this.ids = FXCollections.observableArrayList(ids);
-		gate1ComboBox.setItems(this.ids);
-		gate2ComboBox.setItems(this.ids);
-		gate3ComboBox.setItems(this.ids);
+		for (VBox gate : gates) {
+			ComboBox gateComboBox = (ComboBox) gate.getChildren().get(2);
+			gateComboBox.setItems(this.ids);
+		}
 	}
 
-	public void scanMetroGate(){
-		//int metroCardID =
-		controller.scanMetroGate();
+	public void scanMetroGate(int gateIndex) {
+		VBox currentGate = new VBox();
+		for (int i = 0; i < gates.size(); i++) {
+			if (i == gateIndex) {
+				currentGate = gates.get(i);
+			}
+		}
+		ComboBox gateComboBox = (ComboBox) currentGate.getChildren().get(2);
+		int metroCardID = Integer.parseInt(gateComboBox.getValue().toString());
+		TextField infoField = (TextField) currentGate.getChildren().get(5);
+		try{
+			controller.scanMetroGate(metroCardID, gateIndex + 1);
+		} catch (Exception e) {
+			infoField.setText(e.getMessage());
+		}
+
 	}
 
 }
