@@ -49,4 +49,7 @@ public class MetroCard {
     	return "KaartID: " + kaartID + " Aankoopdatum: " + aankoopdatum + " Ritten beschikbaar: " + rittenBeschikbaar + " Ritten verbruikt: " + rittenVerbruikt;
     }
 
+    public void addRitten(int aantalRitten) {
+        rittenBeschikbaar += aantalRitten;
+    }
 }

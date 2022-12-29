@@ -38,9 +38,7 @@ public class MetroTicketView {
 		root.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
 		Scene scene = new Scene(root, 650, 470);
 
-
 		createInterface(root);
-
 
 		stage.setScene(scene);
 		stage.sizeToScene();
@@ -150,7 +148,9 @@ public class MetroTicketView {
 
 		HBox requestButtons = new HBox();
 		Button confirmRequestButton = new Button("Confirm request");
+		confirmRequestButton.setOnAction(event -> confirmRequest());
 		Button cancelRequestButton = new Button("Cancel request");
+		cancelRequestButton.setOnAction(event -> cancelRequest());
 		requestButtons.getChildren().addAll(confirmRequestButton, cancelRequestButton);
 
 		innerVBox.getChildren().addAll(addExtraRideButton, priceGridPane, priceCalculationLabel, requestButtons);
@@ -170,5 +170,19 @@ public class MetroTicketView {
 
 		priceTextField.setText(Double.toString((double) Math.round(price*100) / 100));
 		priceCalculationLabel.setText(text);
+	}
+
+	public void confirmRequest(){
+		int id = Integer.parseInt(String.valueOf(selectMetroCardComboBox.getValue()));
+		int aantalRitten = Integer.parseInt(numberOfRidesTextField.getText());
+		controller.confirmRequest(id, aantalRitten);
+		cancelRequest();
+	}
+
+	public void cancelRequest(){
+		selectMetroCardComboBox.setValue(null);
+		numberOfRidesTextField.setText("");
+		priceTextField.setText("0");
+		priceCalculationLabel.setText("No extra rides added yet");
 	}
 }

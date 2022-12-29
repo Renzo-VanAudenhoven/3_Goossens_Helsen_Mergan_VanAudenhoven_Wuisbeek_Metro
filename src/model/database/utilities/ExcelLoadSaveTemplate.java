@@ -3,13 +3,11 @@ package model.database.utilities;
 import excel.ExcelPlugin;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
+import model.MetroCard;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public abstract class ExcelLoadSaveTemplate<K,V>{
     public ExcelPlugin excelPlugin = new ExcelPlugin();
@@ -38,8 +36,8 @@ public abstract class ExcelLoadSaveTemplate<K,V>{
         ArrayList<ArrayList<String>> lijst = new ArrayList<>();
 
         for (V value : map.values()) {
-            ArrayList<String> waardeOmgezetNaarArrayList = new ArrayList<String>(Arrays.asList(value.toString().split(",")));
-            lijst.add(waardeOmgezetNaarArrayList);
+            MetroCard metroCard = (MetroCard) value;
+            lijst.add(new ArrayList<>(Arrays.asList(String.valueOf(metroCard.getKaartID()), metroCard.getAankoopdatum(), String.valueOf(metroCard.getRittenBeschikbaar()), String.valueOf(metroCard.getRittenVerbruikt()))));
         }
         return lijst;
     }
@@ -47,7 +45,7 @@ public abstract class ExcelLoadSaveTemplate<K,V>{
 
 
     private Map<K,V> listArrayListToMap(ArrayList<ArrayList<String>> lijst){
-        Map<K,V> map = new TreeMap();
+        Map<K,V> map = new HashMap();
 
         for (ArrayList<String> value : lijst) {
             K arrayListOmgezetNaarKey = getKey(value.toArray(new String[0]));

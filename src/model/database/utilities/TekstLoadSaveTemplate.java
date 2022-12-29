@@ -2,6 +2,7 @@ package model.database.utilities;
 
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
+import model.MetroCard;
 import model.database.loadSaveStrategies.MetrocardsTekstLoadSaveStrategy;
 
 import java.io.*;
@@ -36,7 +37,8 @@ public abstract class TekstLoadSaveTemplate<K,V>{
             for (Map.Entry<K, V> entry : map.entrySet()) {
                 K key = entry.getKey();
                 V value = entry.getValue();
-                writer.write(key + ";" + value);
+                MetroCard metroCard = (MetroCard) value;
+                writer.write(metroCard.getKaartID() + ";" + metroCard.getAankoopdatum() + ";" + metroCard.getRittenBeschikbaar() + ";" + metroCard.getRittenVerbruikt());
                 writer.newLine();
             }
         }

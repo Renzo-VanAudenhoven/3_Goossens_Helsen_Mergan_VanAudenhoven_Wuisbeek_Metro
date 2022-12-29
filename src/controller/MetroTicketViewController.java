@@ -15,6 +15,7 @@ public class MetroTicketViewController implements Observer {
         this.metroFacade = facade;
         metroFacade.addObserver(MetroEventsEnum.OPEN_METROSTATION,this);
         metroFacade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
+        metroFacade.addObserver(MetroEventsEnum.CONFIRM_REQUEST, this);
     }
 
     public void setMetroTicketView(MetroTicketView metroTicketView) {
@@ -37,6 +38,10 @@ public class MetroTicketViewController implements Observer {
 
     public String getPriceText(int id, boolean isStudent, boolean is64Plus) {
         return metroFacade.getPriceText(id, isStudent, is64Plus);
+    }
+
+    public void confirmRequest(int id, int aantalRitten) {
+        metroFacade.confirmRequest(id,aantalRitten);
     }
 
 }

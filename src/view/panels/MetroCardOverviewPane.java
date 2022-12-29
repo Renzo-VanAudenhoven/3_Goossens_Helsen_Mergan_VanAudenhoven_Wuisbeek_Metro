@@ -78,11 +78,11 @@ public class MetroCardOverviewPane extends GridPane{
 		alert.setContentText(message);
 		alert.show();
 	}
-
+/*
 	public void refresh(){
 		metrocards = FXCollections.observableArrayList(database.getMetroCardList());
 		table.setItems(metrocards);
 		table.refresh();
-	}
+	}*/
 
 }

@@ -72,6 +72,7 @@ public class MetroFacade implements Subject{
 
     public void newMetroCard() {
         metroCardDatabase.newMetroCard();
+        metroCardDatabase.save();
         notifyObservers(MetroEventsEnum.BUY_METROCARD);
     }
 
@@ -85,6 +86,12 @@ public class MetroFacade implements Subject{
         MetroCard metroCard = metroCardDatabase.getMetroCard(id);
         TicketPrice ticketPrice = ticketPriceFactory.createTicketPrice(is64Plus, isStudent, metroCard);
         return ticketPrice.getPriceText();
+    }
+
+    public void confirmRequest(int id, int aantalRitten) {
+        metroCardDatabase.getMetroCard(id).addRitten(aantalRitten);
+        metroCardDatabase.save();
+        notifyObservers(MetroEventsEnum.CONFIRM_REQUEST);
     }
 
 }
