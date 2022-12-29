@@ -6,12 +6,6 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class LoadSaveStrategyFactory{
-    private String formaat;
-
-    public LoadSaveStrategyFactory(){
-
-    }
-
 
     public LoadSaveStrategy createLoadSaveStrategy() {
         Properties prop = new Properties();
