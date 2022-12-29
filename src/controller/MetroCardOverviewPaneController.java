@@ -18,6 +18,7 @@ public class MetroCardOverviewPaneController implements Observer {
         metroFacade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
         metroFacade.addObserver(MetroEventsEnum.CONFIRM_REQUEST, this);
         metroFacade.addObserver(MetroEventsEnum.SCAN_METROGATE, this);
+        metroFacade.addObserver(MetroEventsEnum.CLOSE_METROSTATION, this);
     }
 
     public void setMetroCardOverviewPane(MetroCardOverviewPane metroCardOverviewPane) {
@@ -28,9 +29,5 @@ public class MetroCardOverviewPaneController implements Observer {
     public void update() {
         ArrayList<MetroCard> metrocards = metroFacade.getMetroCardList();
         metroCardOverviewPane.updateMetroCardList(metrocards);
-    }
-
-    public MetroFacade getMetroFacade() {
-        return metroFacade;
     }
 }

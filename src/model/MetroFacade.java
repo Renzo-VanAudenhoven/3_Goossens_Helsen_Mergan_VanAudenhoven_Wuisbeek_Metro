@@ -53,8 +53,9 @@ public class MetroFacade implements Subject{
     }
 
     public void closeMetroStation() {
-        // misschien nog opslagformaat aanpassen hier pas doen
         metroCardDatabase.save();
+        metroCardDatabase.clearData();
+        notifyObservers(MetroEventsEnum.CLOSE_METROSTATION);
     }
 
     public ArrayList<MetroCard> getMetroCardList(){
@@ -97,7 +98,7 @@ public class MetroFacade implements Subject{
 
     public void scanMetroGate(int metroCardID, int gateID){
         MetroCard metroCard = metroCardDatabase.getMetroCard(metroCardID);
-            if (!metroCard.isExpired() /*&& metroCard.hasRittenBeschikbaar()*/){
+            if (!metroCard.isExpired()){
                 metroCard.useRit();
                 metroStation.scanMetroGate(gateID);
                 notifyObservers(MetroEventsEnum.SCAN_METROGATE);

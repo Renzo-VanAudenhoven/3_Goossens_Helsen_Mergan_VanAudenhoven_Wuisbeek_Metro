@@ -1,17 +1,15 @@
 package view;
 
+import controller.ControlCenterPaneController;
 import controller.MetroStationViewController;
-import controller.MetroTicketViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -21,12 +19,15 @@ public class MetroStationView {
 	
 	private Stage stage = new Stage();
 	private ObservableList<Integer> ids;
-	private MetroStationViewController controller;
+	private MetroStationViewController metroStationViewController;
+	private ControlCenterPaneController controlCenterPaneController;
 	private ArrayList<VBox> gates = new ArrayList<>();
 	
-	public MetroStationView(MetroStationViewController controller){
-		controller.setMetroStationView(this);
-		this.controller = controller;
+	public MetroStationView(MetroStationViewController metroStationViewController, ControlCenterPaneController controlCenterPaneController){
+		metroStationViewController.setMetroStationView(this);
+		this.metroStationViewController = metroStationViewController;
+		this.controlCenterPaneController = controlCenterPaneController;
+
 		stage.setTitle("METRO STATION VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);
@@ -57,7 +58,7 @@ public class MetroStationView {
 
 	public void createGate(HBox root, String name, VBox gate, int gateIndex) {
 		gate.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
-		gate.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
+		gate.setBackground(new Background(new BackgroundFill(Color.web("#FFD580"), new CornerRadii(10), Insets.EMPTY)));
 		gate.setMaxHeight(300);
 		gate.setPrefWidth(200);
 		gate.setSpacing(5);
@@ -74,11 +75,13 @@ public class MetroStationView {
 
 		// Add a button to scan the metro card
 		Button scanButton = new Button("Scan metrocard");
+//		scanButton.setDisable(true);
 		scanButton.setOnAction(event -> scanMetroGate(gateIndex));
 		gate.getChildren().add(scanButton);
 
 		// Add a button to walk through the gate
 		Button walkThroughButton = new Button("Walk through gate");
+//		walkThroughButton.setDisable(true);
 		walkThroughButton.setOnAction(event -> walkThroughGate(gateIndex));
 		gate.getChildren().add(walkThroughButton);
 
@@ -109,15 +112,44 @@ public class MetroStationView {
 		int metroCardID = Integer.parseInt(gateComboBox.getValue().toString());
 		TextField infoField = (TextField) currentGate.getChildren().get(5);
 		try{
-			controller.scanMetroGate(metroCardID, gateIndex);
+			metroStationViewController.scanMetroGate(metroCardID, gateIndex);
+			controlCenterPaneController.updateScannedCardsAmount(gateIndex);
 			infoField.setText("Card " + metroCardID + " is scanned");
 		} catch (Exception e) {
 			infoField.setText(e.getMessage());
+			controlCenterPaneController.updateAlerts(e.getMessage(), gateIndex);
 		}
 	}
 
 	public void walkThroughGate(int gateIndex){
-		controller.walkThroughGate(gateIndex);
+		VBox currentGate = new VBox();
+		for (int i = 0; i < gates.size(); i++) {
+			if (i == gateIndex) {
+				currentGate = gates.get(i);
+			}
+		}
+		TextField infoField = (TextField) currentGate.getChildren().get(5);
+		try {
+			metroStationViewController.walkThroughGate(gateIndex);
+		}
+		catch (Exception e){
+			infoField.setText(e.getMessage());
+			controlCenterPaneController.updateAlerts(e.getMessage(), gateIndex);
+		}
 	}
 
+
+	public void activateGate(int gateid) {
+		VBox currentGate = gates.get(gateid);
+		currentGate.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
+//		currentGate.getChildren().get(3).setDisable(false);
+//		currentGate.getChildren().get(4).setDisable(false);
+	}
+
+	public void deactivateGate(int gateid) {
+		VBox currentGate = gates.get(gateid);
+		currentGate.setBackground(new Background(new BackgroundFill(Color.web("#FFD580"), new CornerRadii(10), Insets.EMPTY)));
+//		currentGate.getChildren().get(3).setDisable(true);
+//		currentGate.getChildren().get(4).setDisable(true);
+	}
 }

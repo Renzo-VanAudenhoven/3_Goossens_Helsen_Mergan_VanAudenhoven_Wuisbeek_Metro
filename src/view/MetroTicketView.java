@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -142,8 +143,13 @@ public class MetroTicketView {
 		priceGridPane.add(priceLabel, 0, 0);
 		priceGridPane.add(priceTextField, 1, 0);
 
+		TextFlow textFlow = new TextFlow();
+		textFlow.setMaxWidth(550);
 		priceCalculationLabel = new Label("No extra rides added yet");
+		priceCalculationLabel.setMaxWidth(550);
 		priceCalculationLabel.setStyle("-fx-text-fill: red;");
+		priceCalculationLabel.setWrapText(true);
+		textFlow.getChildren().add(priceCalculationLabel);
 
 		HBox requestButtons = new HBox();
 		Button confirmRequestButton = new Button("Confirm request");
@@ -152,7 +158,7 @@ public class MetroTicketView {
 		cancelRequestButton.setOnAction(event -> cancelRequest());
 		requestButtons.getChildren().addAll(confirmRequestButton, cancelRequestButton);
 
-		innerVBox.getChildren().addAll(addExtraRideButton, priceGridPane, priceCalculationLabel, requestButtons);
+		innerVBox.getChildren().addAll(addExtraRideButton, priceGridPane, textFlow, requestButtons);
 		vBox.getChildren().add(innerVBox);
 		root.getChildren().add(vBox);
 	}

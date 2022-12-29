@@ -13,6 +13,7 @@ public class ControlCenterPaneController implements Observer {
         this.metroFacade = facade;
         metroFacade.addObserver(MetroEventsEnum.OPEN_METROSTATION,this);
         metroFacade.addObserver(MetroEventsEnum.BUY_METROCARD,this);
+        metroFacade.addObserver(MetroEventsEnum.CONFIRM_REQUEST,this);
     }
 
     public void setControlCenterPane(ControlCenterPane controlCenterPane) {
@@ -39,5 +40,13 @@ public class ControlCenterPaneController implements Observer {
 
     public void deactivateGate(int gateid) {
         metroFacade.deactivateGate(gateid);
+    }
+
+    public void updateScannedCardsAmount(int gateIndex) {
+        controlCenterPane.updateScannedCardsAmount(gateIndex);
+    }
+
+    public void updateAlerts(String message, int gateIndex) {
+        controlCenterPane.updateAlerts(message, gateIndex);
     }
 }

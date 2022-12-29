@@ -1,6 +1,7 @@
 package view.panels;
 
 import controller.ControlCenterPaneController;
+import controller.MetroStationViewController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,7 +13,9 @@ import javafx.scene.paint.Color;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class ControlCenterPane extends VBox {
@@ -21,11 +24,16 @@ public class ControlCenterPane extends VBox {
     private ArrayList<VBox> gates = new ArrayList<>();
     private TextField numberOfSoldTicketsField;
     private TextField totalAmountOfSoldTicketsField;
+    private TextArea alertsTextField;
+    private MetroStationViewController metroStationViewController;
+    private Button buttonOpen;
+    private Button buttonClose;
 
 
-    public ControlCenterPane(ControlCenterPaneController controlCenterPaneController) {
+    public ControlCenterPane(ControlCenterPaneController controlCenterPaneController, MetroStationViewController metroStationViewController) {
         controlCenterPaneController.setControlCenterPane(this);
         this.controlCenterPaneController = controlCenterPaneController;
+        this.metroStationViewController = metroStationViewController;
 
         VBox root = new VBox();
         root.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
@@ -38,10 +46,11 @@ public class ControlCenterPane extends VBox {
         HBox container = new HBox();
         container.setSpacing(10);
         container.setPadding(new Insets(10));
-        Button buttonOpen = new Button("Open metrostation");
-        Button buttonClose = new Button("Close metrostation");
+        buttonOpen = new Button("Open metrostation");
+        buttonClose = new Button("Close metrostation");
         buttonOpen.setOnAction(event -> openMetroStation());
         buttonClose.setOnAction(event -> closeMetroStation());
+        buttonClose.setDisable(true);
         container.getChildren().addAll(buttonOpen, buttonClose);
         root.getChildren().add(container);
         this.getChildren().add(root);
@@ -49,12 +58,16 @@ public class ControlCenterPane extends VBox {
 
     public void openMetroStation() {
         controlCenterPaneController.openMetroStation();
+        buttonOpen.setDisable(true);
+        buttonClose.setDisable(false);
     }
 
 
 
     public void closeMetroStation() {
         controlCenterPaneController.closeMetroStation();
+        buttonOpen.setDisable(false);
+        buttonClose.setDisable(true);
     }
 
     public void createInterface(VBox root){
@@ -121,7 +134,7 @@ public class ControlCenterPane extends VBox {
         Button deactivateButton = new Button("Deactivate");
         deactivateButton.setOnAction(event -> deactivateGate(gateid-1));
         Label scannedCardsLabel = new Label("# scanned cards");
-        TextField scannedCardsField = new TextField();
+        TextField scannedCardsField = new TextField("0");
         scannedCardsField.setEditable(false);
 
         gate.getChildren().addAll(gateLabel, activateButton, deactivateButton, scannedCardsLabel, scannedCardsField);
@@ -132,32 +145,53 @@ public class ControlCenterPane extends VBox {
         Label alertsLabel = new Label("ALERTS");
         alertsLabel.setPadding(new Insets(10, 0, 0, 10));
 
-        TextArea alertsTextField = new TextArea("06:22 UNAUTHORIZED PASSAGE GATE 1\n" +
-                "06:22 UNAUTHORIZED PASSAGE GATE 2\n" +
-                "06:22 UNAUTHORIZED PASSAGE GATE 3\n");
+        alertsTextField = new TextArea("");
         alertsTextField.setEditable(false);
         alertsTextField.setStyle("-fx-text-fill: red;");
-        ScrollPane scrollPane = new ScrollPane(alertsTextField);
 
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        root.getChildren().addAll(alertsLabel,scrollPane);
+        root.getChildren().addAll(alertsLabel,alertsTextField);
     }
 
     public void activateGate(int gateid){
-        controlCenterPaneController.activateGate(gateid);
-        gates.get(gateid).setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
-        ((Label)gates.get(gateid).getChildren().get(0)).setText("Gate " + (gateid+1) + " / active");
+        try {
+            controlCenterPaneController.activateGate(gateid);
+            metroStationViewController.activateGate(gateid);
+            gates.get(gateid).setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
+            ((Label)gates.get(gateid).getChildren().get(0)).setText("Gate " + (gateid+1) + " / active");
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void deactivateGate(int gateid){
-        controlCenterPaneController.deactivateGate(gateid);
-        gates.get(gateid).setBackground(new Background(new BackgroundFill(Color.web("#FFD580"), new CornerRadii(10), Insets.EMPTY)));
-        ((Label)gates.get(gateid).getChildren().get(0)).setText("Gate " + (gateid+1) + " / inactive");
+        try {
+            controlCenterPaneController.deactivateGate(gateid);
+            metroStationViewController.deactivateGate(gateid);
+            gates.get(gateid).setBackground(new Background(new BackgroundFill(Color.web("#FFD580"), new CornerRadii(10), Insets.EMPTY)));
+            ((Label)gates.get(gateid).getChildren().get(0)).setText("Gate " + (gateid+1) + " / inactive");
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void updateAmountOfTickets(int amountOfTickets) {
         numberOfSoldTicketsField.setText(String.valueOf(amountOfTickets));
+    }
+
+    public void updateScannedCardsAmount(int gateIndex) {
+        TextField scannedCardsAmount = (TextField) gates.get(gateIndex).getChildren().get(4);
+        int amount = Integer.parseInt(scannedCardsAmount.getText());
+        scannedCardsAmount.setText(String.valueOf(amount + 1));
+    }
+
+    public void updateAlerts(String message, int gateIndex) {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        String time = simpleDateFormat.format(calendar.getTime());
+        int number = gateIndex + 1;
+        alertsTextField.setText(time + " in gate " + number + " : " + message + "\n" + alertsTextField.getText());
     }
 }

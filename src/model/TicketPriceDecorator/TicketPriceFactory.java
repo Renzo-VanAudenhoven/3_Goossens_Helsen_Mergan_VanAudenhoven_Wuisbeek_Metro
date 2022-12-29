@@ -23,7 +23,6 @@ public class TicketPriceFactory {
             String actieveKortingen = prop.getProperty("actievekortingen");
             String[] values = actieveKortingen.split(",");
             actieveKortingenLijst = Arrays.asList(values);
-            System.out.println("Values: " + actieveKortingenLijst);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,7 +33,6 @@ public class TicketPriceFactory {
         if (isStudent && actieveKortingenLijst.contains("STUDENTDISCOUNT")) {
             ticketPrice = new StudentDiscount(ticketPrice);
         }
-        System.out.println("Metrocard: "+metroCard);
         if(metroCard.getRittenVerbruikt() > 50 & actieveKortingenLijst.contains("FREQUENTTRAVELLERDISCOUNT")){
             ticketPrice = new FrequentTravellerDiscount(ticketPrice);
         }

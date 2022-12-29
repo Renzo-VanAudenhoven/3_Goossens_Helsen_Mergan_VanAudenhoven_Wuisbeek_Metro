@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 public class MetroCardOverviewPane extends GridPane{
 	private TableView<MetroCard> table;
-	private MetrocardDatabase database = null;
 	private ObservableList<MetroCard> metrocards;
 	private VBox root;
 	

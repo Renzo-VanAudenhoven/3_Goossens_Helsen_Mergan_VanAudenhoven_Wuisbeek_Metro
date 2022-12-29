@@ -128,4 +128,8 @@ public class MetrocardDatabase {
         }
         return amount;
     }
+
+    public void clearData(){
+        data.clear();
+    }
 }
