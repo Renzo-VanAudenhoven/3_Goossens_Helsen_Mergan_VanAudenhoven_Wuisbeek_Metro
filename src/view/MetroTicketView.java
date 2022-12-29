@@ -14,6 +14,10 @@ import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetroTicketView {
 	private Stage stage = new Stage();
 	private ObservableList<Integer> ids;

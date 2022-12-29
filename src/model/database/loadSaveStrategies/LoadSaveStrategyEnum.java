@@ -1,5 +1,9 @@
 package model.database.loadSaveStrategies;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public enum LoadSaveStrategyEnum {
     METROCARDS_TEKST("MetrocardsTekstLoadSaveStrategy"),
     METROCARDS_EXCEL("MetrocardsExcelLoadSaveStrategy");

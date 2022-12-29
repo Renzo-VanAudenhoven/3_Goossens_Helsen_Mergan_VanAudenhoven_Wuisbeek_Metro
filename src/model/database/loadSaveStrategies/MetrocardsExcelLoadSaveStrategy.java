@@ -3,6 +3,10 @@ package model.database.loadSaveStrategies;
 import model.MetroCard;
 import model.database.utilities.ExcelLoadSaveTemplate;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetrocardsExcelLoadSaveStrategy extends ExcelLoadSaveTemplate implements LoadSaveStrategy{
 
     @Override

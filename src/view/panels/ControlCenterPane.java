@@ -17,6 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
 
 public class ControlCenterPane extends VBox {
 

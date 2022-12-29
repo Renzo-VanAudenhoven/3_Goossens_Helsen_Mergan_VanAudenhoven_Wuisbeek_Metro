@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public enum MetroEventsEnum {
     OPEN_METROSTATION,
     CLOSE_METROSTATION,

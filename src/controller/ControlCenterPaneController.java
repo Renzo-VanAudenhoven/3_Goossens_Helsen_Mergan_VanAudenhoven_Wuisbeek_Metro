@@ -5,6 +5,10 @@ import model.MetroFacade;
 import model.Observer;
 import view.panels.ControlCenterPane;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class ControlCenterPaneController implements Observer {
     private MetroFacade metroFacade;
     private ControlCenterPane controlCenterPane;

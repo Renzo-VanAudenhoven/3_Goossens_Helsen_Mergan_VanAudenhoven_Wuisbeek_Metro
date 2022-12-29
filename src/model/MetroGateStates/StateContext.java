@@ -1,5 +1,9 @@
 package model.MetroGateStates;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class StateContext {
     private MetroGateState currentState;
 

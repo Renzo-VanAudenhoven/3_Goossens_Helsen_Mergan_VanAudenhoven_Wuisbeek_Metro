@@ -2,6 +2,10 @@ package model;
 
 import model.MetroGateStates.*;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetroGate {
     private StateContext context;
     private int gateid;

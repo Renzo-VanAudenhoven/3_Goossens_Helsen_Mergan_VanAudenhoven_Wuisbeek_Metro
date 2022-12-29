@@ -10,6 +10,10 @@ import javafx.scene.layout.BorderPane;
 import model.Observer;
 import view.panels.MetroCardOverviewPane;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class AdminMainPane extends BorderPane {
 	public AdminMainPane(ControlCenterPaneController controlCenterPaneController, MetroCardOverviewPaneController metroCardOverviewPaneController, MetroStationViewController metroStationViewController) {
 	    TabPane tabPane = new TabPane(); 	    

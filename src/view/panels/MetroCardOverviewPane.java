@@ -22,6 +22,9 @@ import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 
 import java.util.ArrayList;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen & Thomas Mergan & Torsten Goossens & Corentin Wuisbeek
+ */
 
 public class MetroCardOverviewPane extends GridPane{
 	private TableView<MetroCard> table;

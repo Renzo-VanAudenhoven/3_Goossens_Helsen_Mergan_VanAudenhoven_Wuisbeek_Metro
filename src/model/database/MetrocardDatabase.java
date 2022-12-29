@@ -14,6 +14,10 @@ import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 import model.database.utilities.*;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetrocardDatabase {
     private Map<Integer, MetroCard> data;
     private LoadSaveStrategyFactory loadSaveFactory;

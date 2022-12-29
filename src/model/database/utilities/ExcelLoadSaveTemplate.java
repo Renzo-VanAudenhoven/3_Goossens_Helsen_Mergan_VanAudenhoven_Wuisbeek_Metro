@@ -9,6 +9,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public abstract class ExcelLoadSaveTemplate<K,V>{
     public ExcelPlugin excelPlugin = new ExcelPlugin();
 

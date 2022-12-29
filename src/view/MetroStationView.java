@@ -15,6 +15,10 @@ import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetroStationView {
 	
 	private Stage stage = new Stage();

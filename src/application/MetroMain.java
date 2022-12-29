@@ -11,6 +11,9 @@ import view.AdminView;
 import view.MetroStationView;
 import view.MetroTicketView;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
 
 public class MetroMain extends Application {
 	@Override

@@ -7,6 +7,10 @@ import view.MetroTicketView;
 
 import java.util.ArrayList;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetroTicketViewController implements Observer {
     private MetroFacade metroFacade;
     private MetroTicketView metroTicketView;

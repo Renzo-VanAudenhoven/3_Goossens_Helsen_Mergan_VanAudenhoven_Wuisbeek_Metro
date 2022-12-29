@@ -1,5 +1,9 @@
 package model.TicketPriceDecorator;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class StudentDiscount extends TicketPriceDiscountDecorator{
 
     public StudentDiscount (TicketPrice ticketPrice) {

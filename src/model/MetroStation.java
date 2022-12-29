@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetroStation {
     ArrayList<MetroGate> metroGates = new ArrayList<>();
 

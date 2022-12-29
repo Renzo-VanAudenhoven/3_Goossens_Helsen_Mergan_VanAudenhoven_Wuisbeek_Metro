@@ -8,6 +8,10 @@ import view.panels.MetroCardOverviewPane;
 
 import java.util.ArrayList;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetroCardOverviewPaneController implements Observer {
     private MetroFacade metroFacade;
     private MetroCardOverviewPane metroCardOverviewPane;

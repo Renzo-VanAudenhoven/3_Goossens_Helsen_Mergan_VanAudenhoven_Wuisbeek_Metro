@@ -3,6 +3,10 @@ package model;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetroCard {
     private int kaartID;
     private String aankoopdatum;

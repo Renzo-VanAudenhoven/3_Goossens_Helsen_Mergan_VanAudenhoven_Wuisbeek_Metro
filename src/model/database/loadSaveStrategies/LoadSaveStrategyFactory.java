@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class LoadSaveStrategyFactory{
 
     public LoadSaveStrategy createLoadSaveStrategy() {

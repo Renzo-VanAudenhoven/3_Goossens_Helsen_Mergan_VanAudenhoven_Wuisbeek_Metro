@@ -1,5 +1,9 @@
 package model.TicketPriceDecorator;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class FrequentTravellerDiscount extends TicketPriceDiscountDecorator{
 
     public FrequentTravellerDiscount(TicketPrice ticketPrice) {

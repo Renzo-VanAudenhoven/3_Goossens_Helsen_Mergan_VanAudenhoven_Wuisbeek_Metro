@@ -1,5 +1,9 @@
 package model.TicketPriceDecorator;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class Age64PlusDiscount extends TicketPriceDiscountDecorator{
 
     public Age64PlusDiscount(TicketPrice ticketPrice) {

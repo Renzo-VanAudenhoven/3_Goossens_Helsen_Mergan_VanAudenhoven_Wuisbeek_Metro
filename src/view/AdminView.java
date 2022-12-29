@@ -11,6 +11,10 @@ import javafx.stage.StageStyle;
 import model.Observer;
 import view.panels.AdminMainPane;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class AdminView {
 	private Stage stage = new Stage();		
 		

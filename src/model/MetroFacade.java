@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetroFacade implements Subject{
 
     private LoadSaveStrategyFactory loadSaveStrategyFactory;

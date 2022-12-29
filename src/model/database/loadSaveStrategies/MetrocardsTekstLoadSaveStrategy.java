@@ -9,6 +9,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class MetrocardsTekstLoadSaveStrategy extends TekstLoadSaveTemplate implements LoadSaveStrategy{
     @Override
     public MetroCard maakObject(String[] tokens) {

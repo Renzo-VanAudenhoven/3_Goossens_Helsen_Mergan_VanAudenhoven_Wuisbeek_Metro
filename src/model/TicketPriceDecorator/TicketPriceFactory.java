@@ -10,6 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class TicketPriceFactory {
 
     public TicketPrice createTicketPrice(boolean is64Plus, boolean isStudent, MetroCard metroCard){

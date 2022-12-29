@@ -2,6 +2,10 @@ package model.TicketPriceDecorator;
 
 import model.MetroCard;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public abstract class TicketPrice {
     private boolean is64Plus;
     private boolean isStudent;

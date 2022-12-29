@@ -18,6 +18,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public class SetupPane extends VBox {
     private ComboBox comboBox;
     private ArrayList<CheckBox> checkBoxes = new ArrayList<>();

@@ -9,6 +9,10 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public abstract class TekstLoadSaveTemplate<K,V>{
 
     public abstract V maakObject(String[] tokens);

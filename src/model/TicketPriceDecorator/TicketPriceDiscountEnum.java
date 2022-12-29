@@ -1,5 +1,9 @@
 package model.TicketPriceDecorator;
 
+/**
+ * @author Renzo Van Audenhoven & Jan Helsen
+ */
+
 public enum TicketPriceDiscountEnum {
     AGE64PLUSDISCOUNT("Age 64+ discount"),
     CHRISTMASLEAVEDISCOUNT("Christmas leave discount"),
