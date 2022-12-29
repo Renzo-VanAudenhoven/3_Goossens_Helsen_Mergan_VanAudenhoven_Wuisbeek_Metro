@@ -119,6 +119,13 @@ public class MetrocardDatabase {
         return null;
     }
 
-
-
+    public int getAmountOfTickets(){
+        int amount = 0;
+        MetroCard metroCard;
+        for (Map.Entry<Integer, MetroCard> entry : data.entrySet()) {
+            metroCard = entry.getValue();
+            amount += metroCard.getRittenBeschikbaar() + metroCard.getRittenVerbruikt();
+        }
+        return amount;
+    }
 }

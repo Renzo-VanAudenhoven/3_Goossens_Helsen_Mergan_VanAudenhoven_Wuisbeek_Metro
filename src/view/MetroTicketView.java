@@ -72,7 +72,7 @@ public class MetroTicketView {
 		vBox.getChildren().add(newMetroCardButton);
 
 		Label metroCardPriceTextField = new Label();
-		metroCardPriceTextField.setText("Metro card price is 2.5 free rides included");
+		metroCardPriceTextField.setText("Metro card price is 15€ - 2 free rides included");
 		metroCardPriceTextField.setStyle("-fx-text-fill: red;");
 		vBox.getChildren().add(metroCardPriceTextField);
 
@@ -136,7 +136,7 @@ public class MetroTicketView {
 		Label priceLabel = new Label("Total price");
 
 		priceTextField = new TextField();
-		priceTextField.setText("0");
+		priceTextField.setText("0€");
 		priceTextField.setEditable(false);
 
 		priceGridPane.add(priceLabel, 0, 0);
@@ -167,7 +167,7 @@ public class MetroTicketView {
 		String text = controller.getPriceText(id, isStudent, is64Plus);
 
 
-		priceTextField.setText(Double.toString((double) Math.round(price*100) / 100));
+		priceTextField.setText(Double.toString((double) Math.round(price*100) / 100) + "€");
 		priceCalculationLabel.setText(text);
 	}
 

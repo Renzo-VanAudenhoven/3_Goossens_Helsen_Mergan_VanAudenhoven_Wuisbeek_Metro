@@ -110,10 +110,10 @@ public class MetroStationView {
 		TextField infoField = (TextField) currentGate.getChildren().get(5);
 		try{
 			controller.scanMetroGate(metroCardID, gateIndex);
+			infoField.setText("Card " + metroCardID + " is scanned");
 		} catch (Exception e) {
 			infoField.setText(e.getMessage());
 		}
-
 	}
 
 	public void walkThroughGate(int gateIndex){

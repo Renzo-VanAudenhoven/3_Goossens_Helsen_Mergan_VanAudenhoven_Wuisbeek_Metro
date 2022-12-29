@@ -76,10 +76,16 @@ public class MetroCard {
     }
 
     public boolean hasRittenBeschikbaar(){
-        if (rittenBeschikbaar<0){
+        if (rittenBeschikbaar <= 0){
             throw new IllegalArgumentException("Card " + this.kaartID + " has no rides left");
         }
         return rittenBeschikbaar > 0;
     }
 
+    public void useRit() {
+        if (hasRittenBeschikbaar()) {
+            rittenBeschikbaar--;
+            rittenVerbruikt++;
+        }
+    }
 }

@@ -1,12 +1,8 @@
 package model;
 
-import controller.MetroCardOverviewPaneController;
-import controller.MetroStationViewController;
-import controller.MetroTicketViewController;
 import model.TicketPriceDecorator.TicketPrice;
 import model.TicketPriceDecorator.TicketPriceFactory;
 import model.database.MetrocardDatabase;
-import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
 import java.util.ArrayList;
@@ -101,7 +97,8 @@ public class MetroFacade implements Subject{
 
     public void scanMetroGate(int metroCardID, int gateID){
         MetroCard metroCard = metroCardDatabase.getMetroCard(metroCardID);
-            if (!metroCard.isExpired() && metroCard.hasRittenBeschikbaar()){
+            if (!metroCard.isExpired() /*&& metroCard.hasRittenBeschikbaar()*/){
+                metroCard.useRit();
                 metroStation.scanMetroGate(gateID);
                 notifyObservers(MetroEventsEnum.SCAN_METROGATE);
             }
@@ -122,5 +119,9 @@ public class MetroFacade implements Subject{
 
     public void walkThroughGate(int gateIndex) {
         metroStation.walkThroughGate(gateIndex);
+    }
+
+    public int getAmountOfTickets() {
+        return metroCardDatabase.getAmountOfTickets();
     }
 }

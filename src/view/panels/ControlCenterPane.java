@@ -19,12 +19,14 @@ public class ControlCenterPane extends VBox {
 
     private ControlCenterPaneController controlCenterPaneController;
     private ArrayList<VBox> gates = new ArrayList<>();
+    private TextField numberOfSoldTicketsField;
+    private TextField totalAmountOfSoldTicketsField;
 
 
     public ControlCenterPane(ControlCenterPaneController controlCenterPaneController) {
+        controlCenterPaneController.setControlCenterPane(this);
         this.controlCenterPaneController = controlCenterPaneController;
 
-        //width,height van de parent box (690, 885);
         VBox root = new VBox();
         root.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
         root.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
@@ -71,11 +73,11 @@ public class ControlCenterPane extends VBox {
         gridPane.setHgap(10);
 
         Label numberOfSoldTicketsLabel = new Label("Number of sold tickets:");
-        TextField numberOfSoldTicketsField = new TextField("55");
+        numberOfSoldTicketsField = new TextField("");
         numberOfSoldTicketsField.setEditable(false);
 
         Label totalAmountOfSoldTicketsLabel = new Label("Total amount of sold tickets:");
-        TextField totalAmountOfSoldTicketsField = new TextField("97.55");
+        totalAmountOfSoldTicketsField = new TextField("100.30€");
         totalAmountOfSoldTicketsField.setEditable(false);
 
         gridPane.add(numberOfSoldTicketsLabel, 0, 0);
@@ -106,13 +108,12 @@ public class ControlCenterPane extends VBox {
         root.getChildren().addAll(hbox);
     }
 
-    public void createGateBox(HBox hbox, int gateid, VBox gate, String status){
-        VBox vbox = new VBox();
-        vbox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
-        vbox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
-        vbox.setMaxWidth(200);
-        vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10));
+    public void createGateBox(HBox hbox, int gateid, VBox gate, String status) {
+        gate.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+        gate.setBackground(new Background(new BackgroundFill(Color.web("#FFD580"), new CornerRadii(10), Insets.EMPTY)));
+        gate.setMaxWidth(200);
+        gate.setSpacing(5);
+        gate.setPadding(new Insets(10));
 
         Label gateLabel = new Label("Gate " + gateid + " / " + status);
         Button activateButton = new Button("Activate");
@@ -123,8 +124,8 @@ public class ControlCenterPane extends VBox {
         TextField scannedCardsField = new TextField();
         scannedCardsField.setEditable(false);
 
-        vbox.getChildren().addAll(gateLabel, activateButton, deactivateButton, scannedCardsLabel, scannedCardsField);
-        hbox.getChildren().add(vbox);
+        gate.getChildren().addAll(gateLabel, activateButton, deactivateButton, scannedCardsLabel, scannedCardsField);
+        hbox.getChildren().add(gate);
     }
 
     public void createAlertsBox(VBox root){
@@ -146,9 +147,17 @@ public class ControlCenterPane extends VBox {
 
     public void activateGate(int gateid){
         controlCenterPaneController.activateGate(gateid);
+        gates.get(gateid).setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
+        ((Label)gates.get(gateid).getChildren().get(0)).setText("Gate " + (gateid+1) + " / active");
     }
 
     public void deactivateGate(int gateid){
         controlCenterPaneController.deactivateGate(gateid);
+        gates.get(gateid).setBackground(new Background(new BackgroundFill(Color.web("#FFD580"), new CornerRadii(10), Insets.EMPTY)));
+        ((Label)gates.get(gateid).getChildren().get(0)).setText("Gate " + (gateid+1) + " / inactive");
+    }
+
+    public void updateAmountOfTickets(int amountOfTickets) {
+        numberOfSoldTicketsField.setText(String.valueOf(amountOfTickets));
     }
 }
